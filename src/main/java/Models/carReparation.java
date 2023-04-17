@@ -2,7 +2,7 @@ package Models;
 
 import java.time.LocalDate;
 
-public class carReperation {
+public class carReparation {
 
 private Long id;
 private String Car;
