@@ -18,7 +18,7 @@ public class Car {
     private String color;
     private String licensePlate;
     private Integer mileage;
-    private String motorType;
+    private String engineType;
     private String body;
     private String transmissie;
     private String fuel;
@@ -57,8 +57,8 @@ public class Car {
         return mileage;
     }
 
-    public String getMotorType() {
-        return motorType;
+    public String getEngineType() {
+        return engineType;
     }
 
     public String getBody() {
@@ -104,8 +104,8 @@ public class Car {
         this.mileage = mileage;
     }
 
-    public void setMotorType(String motorType) {
-        this.motorType = motorType;
+    public void setEngineType(String engineType) {
+        this.engineType = engineType;
     }
 
     public void setBody(String body) {
