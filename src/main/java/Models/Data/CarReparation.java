@@ -1,8 +1,8 @@
-package Models;
+package Models.Data;
 
 import java.time.LocalDate;
 
-public class carReparation {
+public class CarReparation {
 
 private Long id;
 private String Car;

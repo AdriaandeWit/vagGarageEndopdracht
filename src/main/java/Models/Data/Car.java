@@ -1,13 +1,20 @@
-package Models;
+package Models.Data;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
-
+@Entity
+@Table(name = "car")
 public class Car {
-
+    @Id
+    @GeneratedValue
     private Long id;
     private String brand;
     private String model;
-    private LocalDate yearOfbuild;
+    private LocalDate yearOfBuild;
     private String color;
     private String licensePlate;
     private Integer mileage;
@@ -34,8 +41,8 @@ public class Car {
         return model;
     }
 
-    public LocalDate getYearOfbuild() {
-        return yearOfbuild;
+    public LocalDate getYearOfBuild() {
+        return yearOfBuild;
     }
 
     public String getColor() {
@@ -81,8 +88,8 @@ public class Car {
         this.model = model;
     }
 
-    public void setYearOfbuild(LocalDate yearOfbuild) {
-        this.yearOfbuild = yearOfbuild;
+    public void setYearOfBuild(LocalDate yearOfBuild) {
+        this.yearOfBuild = yearOfBuild;
     }
 
     public void setColor(String color) {

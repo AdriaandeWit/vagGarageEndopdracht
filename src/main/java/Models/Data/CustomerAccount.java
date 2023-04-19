@@ -1,7 +1,13 @@
-package Models;
+package Models.Data;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
 public class CustomerAccount {
-
+@Id
     private Long id;
     private String costumerFirstName;
     private String costumerLastName;
@@ -11,7 +17,10 @@ public class CustomerAccount {
     private String billingAddress;
     private String bankAccountNumber;
 
+/*
+hier komt nog de relatie met car.
 
+ */
 
     //--------------Getters
 
