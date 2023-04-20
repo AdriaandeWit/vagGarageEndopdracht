@@ -16,7 +16,9 @@ public class CarService {
     private final CarRepository carRepos;
 
     private final CustomerAccountRepository cARepos;
-    public CarOutputDto getOwnerById;
+
+
+
 
 
     public CarService(CarRepository carRepos,CustomerAccountRepository cARepos) {

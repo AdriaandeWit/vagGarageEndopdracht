@@ -1,13 +1,15 @@
 package Models.Data;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table
 public class CustomerAccount {
 @Id
+@GeneratedValue
     private Long id;
     private String costumerFirstName;
     private String costumerLastName;
@@ -16,6 +18,11 @@ public class CustomerAccount {
     private String phoneNumber;
     private String billingAddress;
     private String bankAccountNumber;
+
+
+    @OneToMany
+    @JsonIgnore
+    List<CarOwner> carOwners;
 
 /*
 hier komt nog de relatie met car.
