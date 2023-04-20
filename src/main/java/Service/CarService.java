@@ -2,18 +2,115 @@ package Service;
 
 import Models.Data.Car;
 import Repository.CarRepository;
+import Repository.CustomerAccountRepository;
 import dto.input.CarDto;
 import dto.output.CarOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class CarService {
     @Autowired
     private final CarRepository carRepos;
 
-    public CarService(CarRepository carRepos) {
+    private final CustomerAccountRepository cARepos;
+    public CarOutputDto getOwnerById;
+
+
+    public CarService(CarRepository carRepos,CustomerAccountRepository cARepos) {
         this.carRepos = carRepos;
+        this.cARepos = cARepos;
     }
+
+    public Long createCar(CarDto carDto) {
+        Car car = DtoToCar(carDto);
+
+        carRepos.save(car);
+        return car.getId();
+    }
+
+    public List<CarOutputDto>getAllCars(){
+        List<CarOutputDto> collection = new ArrayList<>();
+        List<Car> list= carRepos.findAll();
+        for (Car car: list){
+            collection.add(carToDto(car));
+        }
+        return collection;
+    }
+
+    public CarOutputDto getCarById(Long id){
+        Optional<Car>car = carRepos.findById(id);
+        if (car.isEmpty()){
+           throw new //RecordnotFoundException
+        }
+        else {
+            Car c = car.get();
+            return carToDto(c);
+        }
+    }
+
+    public CarOutputDto getOwnerById(String owername){
+        Optional<Car>carOptional = carRepos.find
+
+    }
+
+    public CarDto updateCarMileage(long id , Integer mileage ){
+        var optionalCar = carRepos.findById(id);
+        if(optionalCar.isPresent()){
+            var car = optionalCar.get();
+            car.setMileage(mileage);
+            carRepos.save(car);
+        }else {
+            throw new //recordnotfounexception;
+        }
+    }
+
+    public CarDto updateEngineType(long id , String engineType ){
+        var optionalCar = carRepos.findById(id);
+        if(optionalCar.isPresent()){
+            var car = optionalCar.get();
+            car.setEngineType(engineType);
+            carRepos.save(car);
+        }else {
+            throw new //recordnotfounexception;
+        }
+    }
+
+
+
+    public void addOwnerIdToCarId(long id, long ownerId) {
+        var optionalCar =carRepos.findById(id);
+        var optionalOwner = cARepos.findById(ownerId);
+
+        if(optionalCar.isPresent()&&optionalOwner.isPresent(){
+
+            var car= optionalCar.get();
+            var owner = optionalOwner.get();
+            Car.setOwner(owner);// nog toegevoegd worden als relatie
+            carRepos.save(car);
+        }
+        else    {
+        throw new //RecordnotfoundException
+     }
+    }
+
+
+
+
+    public void deleteCarById(long id) {
+        carRepos.deleteById(id);
+        }
+
+    public void deleteAllCars(){
+        carRepos.deleteAll();
+    }
+
+
+
+
+
     public CarOutputDto carToDto(Car car) {
         CarOutputDto dto = new CarOutputDto();
 
@@ -45,6 +142,9 @@ public class CarService {
         car.setBody(carDto.body);
         car.setTransmissie(carDto.transmissie);
         car.setFuel(carDto.fuel);
-        return car
+        return car;
     }
+
+
+
 }

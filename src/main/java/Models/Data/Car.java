@@ -1,11 +1,14 @@
 package Models.Data;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
+
 @Entity
 @Table(name = "car")
 public class Car {
@@ -23,6 +26,10 @@ public class Car {
     private String transmissie;
     private String fuel;
 
+    @OneToMany(mappedBy = "car")
+    @LazyCollection(LazyCollectionOption.FALSE);
+    @JsonIgnore
+    Collection<CarOwner> carOwners;
 
 
 
