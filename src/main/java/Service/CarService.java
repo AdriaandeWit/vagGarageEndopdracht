@@ -54,8 +54,14 @@ public class CarService {
     }
 
     public CarOutputDto getOwnerById(String owername){
-        Optional<Car>carOptional = carRepos.find
-
+        Optional<Car>carOptional = carRepos.findbyNameStarteingWith(owername);
+    if (carOptional.isEmpty()){
+        throw new //
+    }
+    else {
+        Car car = carOptional.get();
+        return carToDto(car);
+    }
     }
 
     public CarDto updateCarMileage(long id , Integer mileage ){

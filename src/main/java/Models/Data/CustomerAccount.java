@@ -11,18 +11,19 @@ public class CustomerAccount {
 @Id
 @GeneratedValue
     private Long id;
-    private String costumerFirstName;
-    private String costumerLastName;
-    private String CostumerNumber;
+    private String customerFirstName;
+    private String customerLastname;
+    private String CustomerNumber;
     private String address;
     private String phoneNumber;
     private String billingAddress;
     private String bankAccountNumber;
 
-
     @OneToMany
     @JsonIgnore
     List<CarOwner> carOwners;
+
+
 
 /*
 hier komt nog de relatie met car.
@@ -36,16 +37,16 @@ hier komt nog de relatie met car.
         return id;
     }
 
-    public String getCostumerFirstName() {
-        return costumerFirstName;
+    public String getCustomerFirstName() {
+        return customerFirstName;
     }
 
-    public String getCostumerLastName() {
-        return costumerLastName;
+    public String getCustomerLastName() {
+        return customerLastname;
     }
 
-    public String getCostumerNumber() {
-        return CostumerNumber;
+    public String getCustomerNumber() {
+        return CustomerNumber;
     }
 
     public String getAddress() {
@@ -64,23 +65,26 @@ hier komt nog de relatie met car.
         return bankAccountNumber;
     }
 
-    //----------------Setters
+    public List<CarOwner> getCarOwners() {
+        return carOwners;
+    }
+//----------------Setters
 
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setCostumerFirstName(String costumerFirstName) {
-        this.costumerFirstName = costumerFirstName;
+    public void setCustomerFirstName(String customerFirstName) {
+        this.customerFirstName = customerFirstName;
     }
 
-    public void setCostumerLastName(String costumerLastName) {
-        this.costumerLastName = costumerLastName;
+    public void setCustomerLastName(String costumerLastName) {
+        this.customerLastname = costumerLastName;
     }
 
-    public void setCostumerNumber(String costumerNumber) {
-        CostumerNumber = costumerNumber;
+    public void setCustomerNumber(String customerNumber) {
+        CustomerNumber = customerNumber;
     }
 
     public void setAddress(String address) {
@@ -97,5 +101,9 @@ hier komt nog de relatie met car.
 
     public void setBankAccountNumber(String bankAccountNumber) {
         this.bankAccountNumber = bankAccountNumber;
+    }
+
+    public void setCarOwners(List<CarOwner> carOwners) {
+        this.carOwners = carOwners;
     }
 }
