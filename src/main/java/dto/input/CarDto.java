@@ -1,6 +1,9 @@
 package dto.input;
 
+import Models.Data.CarOwner;
+
 import java.time.LocalDate;
+import java.util.List;
 
 public class CarDto {
 
@@ -13,6 +16,8 @@ public class CarDto {
     public Integer mileAge;
     public String engineType;
     public String body;
-    public String transmissie;
+    public String transmission;
     public String fuel;
+
+    public List<CarOwner> carOwners;
 }

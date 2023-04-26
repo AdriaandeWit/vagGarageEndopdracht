@@ -1,23 +1,30 @@
 package Controllers;
 
-import Service.CustumerAccountService;
+import Models.Data.Car;
+import Service.CarOwnerService;
+import Service.CustomerAccountService;
 import dto.input.CustomerAccountDto;
+import dto.output.CarOutputDto;
 import dto.output.CustomerAccountOutputDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.List;
 
 @RequestMapping("customer")
 
 public class CustomerAccountController {
 
-    private final CustumerAccountService cAService;
+    private final CustomerAccountService cAService;
 
-    public CustomerAccountController(CustumerAccountService cAService) {
+    private final CarOwnerService carOwnerService;
+
+    public CustomerAccountController(CustomerAccountService cAService, CarOwnerService carOwnerService) {
         this.cAService = cAService;
+        this.carOwnerService = carOwnerService;
     }
 
     @PostMapping()
@@ -33,20 +40,20 @@ public class CustomerAccountController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerAccountOutputDto.CustomerAccountAllOutputDto>> getAllCustemers(){
-        List<CustomerAccountOutputDto.CustomerAccountAllOutputDto> customers = cAService.getAllCustomers();
+    public ResponseEntity<List<CustomerAccountOutputDto>> getAllCustemers(){
+        List<CustomerAccountOutputDto> customers = cAService.getAllCustomers();
         return ResponseEntity.ok(customers);
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<CustomerAccountOutputDto.CustomerAccountAllOutputDto > getCustomerById(@PathVariable long id ){
-        CustomerAccountOutputDto.CustomerAccountAllOutputDto customer = cAService.getCustomerById(id);
+    public ResponseEntity<CustomerAccountOutputDto > getCustomerById(@PathVariable long id ){
+        CustomerAccountOutputDto customer = cAService.getCustomerById(id);
         return ResponseEntity.ok(customer);
     }
 
-    @GetMapping("/find/{ownername}")
-    public ResponseEntity<CustomerAccountOutputDto.CustomerNameOutputDto> getCustomerByName(@PathVariable String costumerfirstname){
-        CustomerAccountOutputDto.CustomerNameOutputDto customer = cAService.getCustomerByName(costumerfirstname);
+    @GetMapping("/find/{costumerFirstname}")
+    public ResponseEntity<CustomerAccountOutputDto.CustomerNameOutputDto> getCustomerByName(@PathVariable String costumerFirstname){
+        CustomerAccountOutputDto.CustomerNameOutputDto customer = cAService.getCustomerByName(costumerFirstname);
         return ResponseEntity.ok(customer);
     }
 
@@ -55,10 +62,10 @@ public class CustomerAccountController {
         CustomerAccountOutputDto.CustomerFinanceOutputDto customer = cAService.getBillingAddressById(id);
         return ResponseEntity.ok(customer);
     }
-    @GetMapping("/find/car/{id}")
-    public ResponseEntity<CustomerAccountOutputDto.CustomerAccountAllOutputDto>getCarById(@PathVariable long id){
-        customerCar = cAService.getCarById(id);
-        return ResponseEntity.ok(customer);
+    @GetMapping("/find/car/{owner_id}")
+    public ResponseEntity<Collection<CarOutputDto>>getCarByCustomerId(@PathVariable long owner_id){
+       Collection<CarOutputDto> car = carOwnerService.getCarByCustomerId(owner_id);
+        return ResponseEntity.ok(car);
     }
 
     @PutMapping("/update/name/{id}")

@@ -1,5 +1,6 @@
 package Service;
 
+import Exceptions.RecordNotFoundException;
 import Models.Data.Car;
 import Repository.CarRepository;
 import Repository.CustomerAccountRepository;
@@ -45,7 +46,7 @@ public class CarService {
     public CarOutputDto getCarById(Long id){
         Optional<Car>car = carRepos.findById(id);
         if (car.isEmpty()){
-           throw new //RecordnotFoundException
+           throw new RecordNotFoundException("Can find"+ car + "please enter another id");
         }
         else {
             Car c = car.get();
@@ -54,12 +55,12 @@ public class CarService {
     }
 
     public CarOutputDto getOwnerById(String owername){
-        Optional<Car>carOptional = carRepos.findbyNameStarteingWith(owername);
-    if (carOptional.isEmpty()){
-        throw new //
+        Optional<Car> optionalCar = carRepos.findbyNameStarteingWith(owername);
+    if (optionalCar.isEmpty()){
+        throw new RecordNotFoundException("Can find "+ optionalCar + " please enter a anther onwername");
     }
     else {
-        Car car = carOptional.get();
+        Car car = optionalCar.get();
         return carToDto(car);
     }
     }
@@ -71,8 +72,9 @@ public class CarService {
             car.setMileage(mileage);
             carRepos.save(car);
         }else {
-            throw new //recordnotfounexception;
+            throw new RecordNotFoundException("Can find "+ optionalCar + " please enter a anther onwername");
         }
+        return null;
     }
 
     public CarDto updateEngineType(long id , String engineType ){
@@ -82,29 +84,10 @@ public class CarService {
             car.setEngineType(engineType);
             carRepos.save(car);
         }else {
-            throw new //recordnotfounexception;
+            throw new RecordNotFoundException("Can find "+ optionalCar + " please enter a anther onwername");
         }
+        return null;
     }
-
-
-
-    public void addOwnerIdToCarId(long id, long ownerId) {
-        var optionalCar =carRepos.findById(id);
-        var optionalOwner = cARepos.findById(ownerId);
-
-        if(optionalCar.isPresent()&&optionalOwner.isPresent(){
-
-            var car= optionalCar.get();
-            var owner = optionalOwner.get();
-            Car.setOwner(owner);// nog toegevoegd worden als relatie
-            carRepos.save(car);
-        }
-        else    {
-        throw new //RecordnotfoundException
-     }
-    }
-
-
 
 
     public void deleteCarById(long id) {
@@ -131,8 +114,9 @@ public class CarService {
         dto.mileage = car.getMileage();
         dto.engineType = car.getEngineType();
         dto.body = car.getBody();
-        dto.transmissie = car.getTransmissie();
+        dto.transmission = car.getTransmission();
         dto.fuel = car.getFuel();
+        dto.carOwners = car.getCarOwner();
 
         return dto;
     }
@@ -148,8 +132,9 @@ public class CarService {
         car.setMileage(carDto.mileAge);
         car.setEngineType(carDto.engineType);
         car.setBody(carDto.body);
-        car.setTransmissie(carDto.transmissie);
+        car.setTransmission(carDto.transmission);
         car.setFuel(carDto.fuel);
+        car.setCarOwner(carDto.carOwners);
         return car;
     }
 

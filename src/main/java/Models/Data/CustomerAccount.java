@@ -13,7 +13,8 @@ public class CustomerAccount {
     private Long id;
     private String customerFirstName;
     private String customerLastname;
-    private String CustomerNumber;
+
+    private String customerNumber;
     private String address;
     private String phoneNumber;
     private String billingAddress;
@@ -46,7 +47,7 @@ hier komt nog de relatie met car.
     }
 
     public String getCustomerNumber() {
-        return CustomerNumber;
+        return customerNumber;
     }
 
     public String getAddress() {
@@ -84,7 +85,7 @@ hier komt nog de relatie met car.
     }
 
     public void setCustomerNumber(String customerNumber) {
-        CustomerNumber = customerNumber;
+        this.customerNumber = customerNumber;
     }
 
     public void setAddress(String address) {

@@ -1,9 +1,11 @@
 package Controllers;
 
-import Models.Data.CustomerAccount;
+
+import Service.CarOwnerService;
 import Service.CarService;
 import dto.input.CarDto;
 import dto.output.CarOutputDto;
+import dto.output.CustomerAccountOutputDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,8 +20,11 @@ public class CarController {
 
     private final CarService carService;
 
-    public CarController(CarService carService) {
+    private final CarOwnerService carOwnerService;
+
+    public CarController(CarService carService, CarOwnerService carOwnerService) {
         this.carService = carService;
+        this.carOwnerService = carOwnerService;
     }
 
 
@@ -46,24 +51,11 @@ public class CarController {
         return ResponseEntity.ok(carOutputDto);
     }
 
-    @GetMapping("/find/{ownername}")
-    public ResponseEntity<CarOutputDto> getOwnerByName(@PathVariable String ownername){
-        CarOutputDto carOutputDto = carService.getOwnerById(ownername);
-        return ResponseEntity.ok(carOutputDto);
+    @GetMapping("/find/{carId}")
+    public ResponseEntity<Collection<CustomerAccountOutputDto>> getAccountByCarId(@PathVariable Long carId){
+        Collection<CustomerAccountOutputDto> account = carOwnerService.getAccountByCarId(carId);
+        return ResponseEntity.ok(account);
     }
-    /*
-    KIJk hier nog even naar.
-    @GetMapping("/find/owner/{carId}")
-    public Collection<CustomerAccount> getCustomerByCarId(@PathVariable("carId") Long carID{
-        return CarCustomerAcount.getCustomerByCarId(carID);
-    }
-
-    */
-  /*optie om erbij te doen.
-    @GetMapping
-    public ResponseEntity<>
-
-   */
 
     @PutMapping("/update/mileage/{id}")
     public ResponseEntity<CarDto> updateCarMileage(@PathVariable long id,@RequestParam Integer mileage   ){
@@ -79,8 +71,8 @@ public class CarController {
 
     }
     @PutMapping("/car/owner/{id}/{ownerId}")
-    public ResponseEntity<Object>addOwnerIdToCarId(@PathVariable long id, @PathVariable("owenerId") long ownerId ){
-        carService.addOwnerIdToCarId(id,ownerId);
+    public ResponseEntity<Object>addAccountToCar(@PathVariable long id, @PathVariable("owenerId") long ownerId ){
+        carOwnerService.addAccountToCar(id,ownerId);
         return ResponseEntity.ok().build();
     }
 

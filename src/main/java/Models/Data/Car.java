@@ -6,7 +6,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -23,13 +22,15 @@ public class Car {
     private Integer mileage;
     private String engineType;
     private String body;
-    private String transmissie;
+    private String transmission;
     private String fuel;
 
+
+
     @OneToMany(mappedBy = "car")
-    @LazyCollection(LazyCollectionOption.FALSE);
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
-    Collection<CarOwner> carOwners;
+    List<CarOwner> carOwner;
 
 
 
@@ -72,15 +73,18 @@ public class Car {
         return body;
     }
 
-    public String getTransmissie() {
-        return transmissie;
+    public String getTransmission() {
+        return transmission;
     }
 
     public String getFuel() {
         return fuel;
     }
 
-    //-------------Setters
+    public List<CarOwner> getCarOwner() {
+        return carOwner;
+    }
+//-------------Setters
 
 
     public void setId(Long id) {
@@ -119,11 +123,15 @@ public class Car {
         this.body = body;
     }
 
-    public void setTransmissie(String transmissie) {
-        this.transmissie = transmissie;
+    public void setTransmission(String transmission) {
+        this.transmission = transmission;
     }
 
     public void setFuel(String fuel) {
         this.fuel = fuel;
     }
+    public void setCarOwner(List<CarOwner> carOwner) {
+        this.carOwner = carOwner;
+    }
+
 }
