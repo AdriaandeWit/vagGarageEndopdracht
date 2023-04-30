@@ -90,11 +90,11 @@ public class CarService {
     }
 
 
-    public void deleteCarById(long id) {
+    public String deleteCarById(long id) {
         carRepos.deleteById(id);
         }
 
-    public void deleteAllCars(){
+    public String deleteAllCars(){
         carRepos.deleteAll();
     }
 

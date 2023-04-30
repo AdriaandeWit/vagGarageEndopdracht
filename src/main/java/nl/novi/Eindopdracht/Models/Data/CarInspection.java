@@ -20,7 +20,7 @@ public class CarInspection {
 
     private boolean carIsCorrect;
     private String carIsFine;
-    private boolean carIsincorrect;
+    private boolean carIsIncorrect;
 
     private String hasProblem;
 
@@ -55,8 +55,8 @@ public class CarInspection {
         return carIsFine;
     }
 
-    public boolean isCarIsincorrect() {
-        return carIsincorrect;
+    public boolean isCarIsIncorrect() {
+        return carIsIncorrect;
     }
 
     public String getHasProblem() {
@@ -91,8 +91,8 @@ public class CarInspection {
         this.carIsFine = carIsFine;
     }
 
-    public void setCarIsincorrect(boolean carIsincorrect) {
-        this.carIsincorrect = carIsincorrect;
+    public void setCarIsIncorrect(boolean carIsIncorrect) {
+        this.carIsIncorrect = carIsIncorrect;
     }
 
     public void setHasProblem(String hasProblem) {

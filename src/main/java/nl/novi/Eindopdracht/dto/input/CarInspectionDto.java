@@ -11,7 +11,7 @@ public class CarInspectionDto {
     public LocalDate inspectionDate;
     public boolean carIsCorrect;
     public String carIsFine;
-    public boolean carIsincorrect;
+    public boolean carIsIncorrect;
     public String hasProblem;
 
 }
