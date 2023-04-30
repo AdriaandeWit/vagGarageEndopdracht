@@ -50,32 +50,8 @@ public class CarInspectionService {
             collectionOffId.add(inspectionToDto(i));
         }
         return collectionOffId;
+        }
     }
-    }
-
-
-
-
-
-
-
-    public CarInspectionOutputDto inspectionToDto(CarInspection carInspection){
-        CarInspectionOutputDto dto = new CarInspectionOutputDto();
-
-        dto.id= carInspection.getId();
-        dto.milleAge = carInspection.getMileAge();
-        dto.licensePlate = carInspection.getLicensePlate();
-        dto.costumerNumber=carInspection.getCostumerNumber();
-        dto.inspectionDate=carInspection.getInspectionDate();
-        dto.carIsCorrect=carInspection.isCarIsCorrect();
-        dto.carIsFine=carInspection.getCarIsFine();
-        dto.carIsincorrect=carInspection.isCarIsIncorrect();
-        dto.hasProblem=carInspection.getHasProblem();
-
-        return dto;
-
-    }
-
     public CarInspection DtoToCarInspection (CarInspectionDto inspectionDto){
         CarInspection inspection = new CarInspection();
 
@@ -121,15 +97,15 @@ public class CarInspectionService {
 
 
     public CarInspectionDto updateCarIsFine(Long id, String carIsFine) {
-    var optionalCarInspection = carInspectionRepos.findById(id);
-    if(optionalCarInspection.isPresent()){
-        var carInspection = optionalCarInspection.get();
-        carInspection.setCarIsFine(carIsFine);
-        carInspectionRepos.save(carInspection);
-    }else {
-        throw new RecordNotFoundException("cannot find "+ id + "please enter a anther id");
-    }
-    return null;
+        var optionalCarInspection = carInspectionRepos.findById(id);
+        if(optionalCarInspection.isPresent()){
+            var carInspection = optionalCarInspection.get();
+            carInspection.setCarIsFine(carIsFine);
+            carInspectionRepos.save(carInspection);
+        }else {
+            throw new RecordNotFoundException("cannot find "+ id + "please enter a anther id");
+        }
+        return null;
     }
 
     public CarInspectionDto updateHasProblem(Long id, String hasProblem) {
@@ -146,21 +122,21 @@ public class CarInspectionService {
     }
 
     public boolean updateStatusCar(Long id, boolean carIsCorrect,boolean carIsIncorrect) {
-            var optionalCarInspection = carInspectionRepos.findById(id);
-            if (optionalCarInspection.isPresent()) {
-                var carInspection = optionalCarInspection.get();
-                if (carIsCorrect) {
-                    carInspection.setCarIsIncorrect(false);
-                    carInspection.setCarIsCorrect(true);
-                } else {
-                    carInspection.setCarIsCorrect(false);
-                    carInspection.setCarIsIncorrect(true);
-                }
-                carInspectionRepos.save(carInspection);
-                return true;
+        var optionalCarInspection = carInspectionRepos.findById(id);
+        if (optionalCarInspection.isPresent()) {
+            var carInspection = optionalCarInspection.get();
+            if (carIsCorrect) {
+                carInspection.setCarIsIncorrect(false);
+                carInspection.setCarIsCorrect(true);
             } else {
-                return false;
+                carInspection.setCarIsCorrect(false);
+                carInspection.setCarIsIncorrect(true);
             }
+            carInspectionRepos.save(carInspection);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String deleteInspectionById(Long id) {
@@ -178,6 +154,30 @@ public class CarInspectionService {
         Long count = carInspectionRepos.count();
         carInspectionRepos.deleteAll();
         return "We delted"+ count + "inspections";
+    }
+
+
+
+
+
+
+
+
+    public CarInspectionOutputDto inspectionToDto(CarInspection carInspection){
+        CarInspectionOutputDto dto = new CarInspectionOutputDto();
+
+        dto.id= carInspection.getId();
+        dto.milleAge = carInspection.getMileAge();
+        dto.licensePlate = carInspection.getLicensePlate();
+        dto.costumerNumber=carInspection.getCostumerNumber();
+        dto.inspectionDate=carInspection.getInspectionDate();
+        dto.carIsCorrect=carInspection.isCarIsCorrect();
+        dto.carIsFine=carInspection.getCarIsFine();
+        dto.carIsincorrect=carInspection.isCarIsIncorrect();
+        dto.hasProblem=carInspection.getHasProblem();
+
+        return dto;
+
     }
 
 

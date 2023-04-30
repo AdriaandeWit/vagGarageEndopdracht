@@ -1,5 +1,6 @@
 package nl.novi.Eindopdracht.Service;
 
+import nl.novi.Eindopdracht.Exceptions.CarNotFoundException;
 import nl.novi.Eindopdracht.Exceptions.RecordNotFoundException;
 import nl.novi.Eindopdracht.Models.Data.Car;
 import nl.novi.Eindopdracht.Repository.CarRepository;
@@ -91,11 +92,18 @@ public class CarService {
 
 
     public String deleteCarById(long id) {
-        carRepos.deleteById(id);
+        if (!carRepos.existsById(id)) {
+            throw new CarNotFoundException("Car with id:" + id + "is not found");
+        } else {
+            Long count = carRepos.count();
+            carRepos.deleteById(id);
+            return "You delete" + count + "in the id" + id;
         }
-
+    }
     public String deleteAllCars(){
+        Long count = carRepos.count();
         carRepos.deleteAll();
+        return "You deleted "+ count + "cars";
     }
 
 
