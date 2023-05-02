@@ -1,23 +1,26 @@
-package nl.novi.Eindopdracht.Models.Data;
+package nl.novi.Eindopdracht.Models.Data.CarParts;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.MappedSuperclass;
 
-@Entity
-@Table
+@MappedSuperclass
 public class CarParts {
-@Id
-@GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
     private String partName;
-    private String partNumber;
+     private String partNumber;
     private Double price;
     private Integer amountOfParts;
 
+    public CarParts(Long id, String partName, String partNumber, Double price, Integer amountOfParts) {
+    }
 
-//----------------------Getters
+    public CarParts() {
+
+    }
 
     public Long getId() {
         return id;
@@ -38,10 +41,6 @@ public class CarParts {
     public Integer getAmountOfParts() {
         return amountOfParts;
     }
-
-
-    //---------------Setters
-
 
     public void setId(Long id) {
         this.id = id;
