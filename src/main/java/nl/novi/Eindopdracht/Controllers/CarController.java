@@ -39,7 +39,7 @@ public class CarController {
         return ResponseEntity.created(uri).body(carDto);
     }
 
-    @GetMapping
+    @GetMapping("find/all")
     public ResponseEntity<List<CarOutputDto>> getAllCars(){
         List<CarOutputDto> carOutputDto = carService.getAllCars();
         return ResponseEntity.ok(carOutputDto);
@@ -71,7 +71,7 @@ public class CarController {
 
     }
     @PutMapping("/car/owner/{id}/{ownerId}")
-    public ResponseEntity<Object>addAccountToCar(@PathVariable long id, @PathVariable("owenerId") long ownerId ){
+    public ResponseEntity<Object>addAccountToCar(@PathVariable Long id, @PathVariable("owenerId") Long ownerId){
         carOwnerService.addAccountToCar(id,ownerId);
         return ResponseEntity.ok().build();
     }
@@ -82,7 +82,7 @@ public class CarController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/all")
     public ResponseEntity<String> deleteAllCars(){
         carService.deleteAllCars();
         return ResponseEntity.noContent().build();

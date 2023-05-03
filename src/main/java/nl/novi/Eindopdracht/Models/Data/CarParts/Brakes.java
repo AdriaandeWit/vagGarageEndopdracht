@@ -1,7 +1,6 @@
 package nl.novi.Eindopdracht.Models.Data.CarParts;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
@@ -9,9 +8,9 @@ import jakarta.persistence.Table;
 public class Brakes extends CarParts{
 
 
-private Double OuterDiameter;
+private Double outerDiameter;
 private Double centerDiameter;
-private Double Height;
+private Double height;
 private Double minThickness;
 private Double surface;
 private Double discThickness;
@@ -30,9 +29,9 @@ private Boolean withoutWheelHub;
                   Double surface, Double discThickness, String boreTypeNumberOfHoles, Double wheelStudDiameter,
                   Boolean withoutWheelMountingBolts, Boolean withoutWheelHub) {
         super(id,partName,partNumber,price,amountOfParts);
-        this.OuterDiameter = outerDiameter;
+        this.outerDiameter = outerDiameter;
         this.centerDiameter = centerDiameter;
-        this.Height = height;
+        this.height = height;
         this.minThickness = minThickness;
         this.surface = surface;
         this.discThickness = discThickness;
@@ -45,7 +44,7 @@ private Boolean withoutWheelHub;
 
 
     public Double getOuterDiameter() {
-        return OuterDiameter;
+        return outerDiameter;
     }
 
     public Double getCenterDiameter() {
@@ -53,7 +52,7 @@ private Boolean withoutWheelHub;
     }
 
     public Double getHeight() {
-        return Height;
+        return height;
     }
 
     public Double getMinThickness() {
@@ -85,7 +84,7 @@ private Boolean withoutWheelHub;
     }
 
     public void setOuterDiameter(Double outerDiameter) {
-        OuterDiameter = outerDiameter;
+        this.outerDiameter = outerDiameter;
     }
 
     public void setCenterDiameter(Double centerDiameter) {
@@ -93,7 +92,7 @@ private Boolean withoutWheelHub;
     }
 
     public void setHeight(Double height) {
-        Height = height;
+        this.height = height;
     }
 
     public void setMinThickness(Double minThickness) {

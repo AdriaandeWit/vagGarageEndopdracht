@@ -9,8 +9,4 @@ public abstract class CarPartsOutputDto {
     public Integer amountOfParts;
 
 
-
-
-
-
 }
