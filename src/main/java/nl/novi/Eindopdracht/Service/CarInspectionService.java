@@ -32,7 +32,7 @@ public class CarInspectionService {
     }
     public CarInspectionOutputDto getInspectionByID(long id) {
         Optional<CarInspection> inspection = carInspectionRepos.findById(id);
-        if (inspection.isEmpty()) {
+        if (!inspection.isPresent()) {
             throw  new RecordNotFoundException("Cannot find inspcetion please enter a anther id ");
         }
         else {
@@ -69,9 +69,9 @@ public class CarInspectionService {
     }
 
     public CarInspectionDto updateMileAge(Long id, int milleAge) {
-        var optionalcarInspection = carInspectionRepos.findById(id);
+        Optional<CarInspection> optionalcarInspection = carInspectionRepos.findById(id);
         if(optionalcarInspection.isPresent()){
-            var carInspection = optionalcarInspection.get();
+            CarInspection carInspection = optionalcarInspection.get();
             carInspection.setMileAge(milleAge);
             carInspectionRepos.save(carInspection);
         }else {
@@ -83,9 +83,9 @@ public class CarInspectionService {
 
 
     public CarInspectionDto updateInspectionDate(Long id, LocalDate inspectionDate) {
-        var optionalCarInspection =carInspectionRepos.findById(id);
+        Optional<CarInspection> optionalCarInspection =carInspectionRepos.findById(id);
         if (optionalCarInspection.isPresent()){
-            var carInspection = optionalCarInspection.get();
+            CarInspection carInspection = optionalCarInspection.get();
             carInspection.setInspectionDate(inspectionDate);
             carInspectionRepos.save(carInspection);
         }else {
@@ -97,9 +97,9 @@ public class CarInspectionService {
 
 
     public CarInspectionDto updateCarIsFine(Long id, String carIsFine) {
-        var optionalCarInspection = carInspectionRepos.findById(id);
+        Optional<CarInspection> optionalCarInspection = carInspectionRepos.findById(id);
         if(optionalCarInspection.isPresent()){
-            var carInspection = optionalCarInspection.get();
+            CarInspection carInspection = optionalCarInspection.get();
             carInspection.setCarIsFine(carIsFine);
             carInspectionRepos.save(carInspection);
         }else {
@@ -109,9 +109,9 @@ public class CarInspectionService {
     }
 
     public CarInspectionDto updateHasProblem(Long id, String hasProblem) {
-        var optionalCarInspection = carInspectionRepos.findById(id);
+        Optional<CarInspection> optionalCarInspection = carInspectionRepos.findById(id);
         if(optionalCarInspection.isPresent()){
-            var carInspection = optionalCarInspection.get();
+            CarInspection carInspection = optionalCarInspection.get();
             carInspection.setCarIsFine(hasProblem);
             carInspectionRepos.save(carInspection);
         }else {
@@ -122,9 +122,9 @@ public class CarInspectionService {
     }
 
     public boolean updateStatusCar(Long id, boolean carIsCorrect,boolean carIsIncorrect) {
-        var optionalCarInspection = carInspectionRepos.findById(id);
+        Optional<CarInspection> optionalCarInspection = carInspectionRepos.findById(id);
         if (optionalCarInspection.isPresent()) {
-            var carInspection = optionalCarInspection.get();
+            CarInspection carInspection = optionalCarInspection.get();
             if (carIsCorrect) {
                 carInspection.setCarIsIncorrect(false);
                 carInspection.setCarIsCorrect(true);

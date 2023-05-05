@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Service
@@ -61,7 +61,7 @@ public class CarOwnerService {
         List<CarOwner> carOwners = carOwnerRepository.findAllByCarsId(OwnerId);
         for (CarOwner carOwner : carOwners) {
             Car car = carOwner.getCar();
-            var dto = new CarOutputDto();
+            CarOutputDto dto = new CarOutputDto();
 
             dto.setId(car.getId());
             dto.setBrand(car.getBrand());
@@ -82,18 +82,18 @@ public class CarOwnerService {
     }
 
     public CarOwnerKey addAccountToCar(Long carId, Long ownerId) {
-        var carOwner = new CarOwner();
-        var optionalCar = carRepository.findById(carId);
-        var optionalAccount = customerAccountRepository.findById(ownerId);
+        CarOwner carOwner = new CarOwner();
+        Optional<Car> optionalCar = carRepository.findById(carId);
+        Optional<CustomerAccount> optionalAccount = customerAccountRepository.findById(ownerId);
 
         if (optionalCar.isPresent()) {
             throw new RecordNotFoundException("Can find" + optionalCar + "please enter another id");
         }
-        var car = optionalCar.get();
+        Car car = optionalCar.get();
         if (optionalAccount.isPresent()) {
             throw new RecordNotFoundException("Can find" + optionalAccount + "please enter another id");
         }
-        var account = optionalAccount.get();
+        CustomerAccount account = optionalAccount.get();
         carOwner.setCar(car);
         carOwner.setCustomerAccount(account);
         CarOwnerKey id = new CarOwnerKey(carId, ownerId);

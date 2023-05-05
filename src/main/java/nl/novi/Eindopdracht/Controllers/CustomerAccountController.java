@@ -52,7 +52,7 @@ public class CustomerAccountController {
 
     @GetMapping("/find/{costumerFirstname}")
     public ResponseEntity<CustomerAccountOutputDto.CustomerNameOutputDto> getCustomerByName(@PathVariable String costumerFirstname){
-        CustomerAccountOutputDto.CustomerNameOutputDto customer = cAService.getCustomerByName(costumerFirstname);
+        CustomerAccountOutputDto.CustomerNameOutputDto customer = cAService.getCustomerByLastName(costumerFirstname);
         return ResponseEntity.ok(customer);
     }
 

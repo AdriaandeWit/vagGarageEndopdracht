@@ -6,10 +6,11 @@ import nl.novi.Eindopdracht.Repository.BrakeRepository;
 import nl.novi.Eindopdracht.Repository.CarRepository;
 import nl.novi.Eindopdracht.dto.input.CarPartsDto.BrakesDto;
 import nl.novi.Eindopdracht.dto.output.BrakesOutputDto;
-import nl.novi.Eindopdracht.mappers.BrakeMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,28 +20,31 @@ public class BrakeService {
 
     private final CarRepository  carRepos;
 
-    private final BrakeMapper brakeMapper;
 
 
-    public BrakeService(BrakeRepository brakeRepos, CarRepository carRepos, BrakeMapper brakeMapper) {
+
+    public BrakeService(BrakeRepository brakeRepos, CarRepository carRepos ) {
         this.brakeRepos = brakeRepos;
         this.carRepos = carRepos;
-        this.brakeMapper = brakeMapper;
     }
 
 
     public Long createBrake(BrakesDto brakesDto ) {
-        Brakes brakes = BrakeMapper.MAPPER.mapToBrake(brakesDto);
+        Brakes brakes = mapToBrake(brakesDto);
         Brakes savedBrake = brakeRepos.save(brakes);
 
-        BrakesOutputDto savedBrakeDto = brakeMapper.MAPPER.mapToBrakeDto(savedBrake);
+        BrakesOutputDto savedBrakeDto = mapToBrakeDto(savedBrake);
 
         return savedBrakeDto.id;
     }
 
     public List<BrakesOutputDto> getAllBrakes() {
-        List<Brakes> brakes = brakeRepos.findAll();
-        return brakes.stream().map(brakeMapper::mapToBrakeDto).collect(Collectors.toList());
+        List<BrakesOutputDto> collectionBrakes =new ArrayList<>();
+        List<Brakes> brakesList = brakeRepos.findAll();
+        for (Brakes brake: brakesList ){
+            collectionBrakes.add(mapToBrakeDto(brake));
+        }
+        return  collectionBrakes;
 
 
     }
@@ -48,17 +52,17 @@ public class BrakeService {
         Brakes brake = brakeRepos.findById(id).orElseThrow(
                 ()-> new RecordNotFoundException("brake","id",id )
         );
-        return BrakeMapper.MAPPER.mapToBrakeDto(brake);
+        return mapToBrakeDto(brake);
     }
-    public List<BrakesOutputDto> getAllBrakesByCarId(long carId) {
+    /* public List<BrakesOutputDto> getAllBrakesByCarId(long carId) {
 
-
+return
     }
-
+*/
     public Object updateAmountOfParts(Long id, Integer amountOfParts) {
-        var optionalBrake = brakeRepos.findById(id);
+        Optional<Brakes> optionalBrake = brakeRepos.findById(id);
         if(optionalBrake.isPresent()){
-            var brake = optionalBrake.get();
+            Brakes brake = optionalBrake.get();
             brake.setAmountOfParts(amountOfParts);
             brakeRepos.save(brake);
         }else {
@@ -68,9 +72,9 @@ public class BrakeService {
     }
 
     public Object updatePrice(Long id, Double price){
-        var optionalBrake = brakeRepos.findById(id);
+        Optional<Brakes> optionalBrake = brakeRepos.findById(id);
         if(optionalBrake.isPresent()){
-        var brake = optionalBrake.get();
+        Brakes brake = optionalBrake.get();
         brake.setPrice(price);
         brakeRepos.save(brake);
     }else {
@@ -81,9 +85,9 @@ public class BrakeService {
 
 
     public Object updatePartNumber(Long id, String partNumber) {
-        var optionalBrake = brakeRepos.findById(id);
+        Optional<Brakes> optionalBrake = brakeRepos.findById(id);
         if(optionalBrake.isPresent()){
-            var brake = optionalBrake.get();
+            Brakes brake = optionalBrake.get();
             brake.setPartNumber(partNumber);
             brakeRepos.save(brake);
         }else {
@@ -92,10 +96,11 @@ public class BrakeService {
         return null;
     }
         
-    }
 
-    public void addBrakeToCar(Long id, Long carId) {
-    }
+
+ //   public void addBrakeToCar(Long id, Long carId) {
+
+//}
 
     public String deleteBrakeById(Long id) {
         Brakes existingBrake = brakeRepos.findById(id).orElseThrow(
@@ -112,6 +117,55 @@ public class BrakeService {
     Long count = brakeRepos.count();
     brakeRepos.deleteAll();
     return "You deleted"+ count+ "brakes";
+    }
+    public BrakesOutputDto mapToBrakeDto(Brakes brakes) {
+        if ( brakes == null ) {
+            return null;
+        }
+
+        BrakesOutputDto brakesOutputDto = new BrakesOutputDto();
+
+        brakesOutputDto.id = brakes.getId();
+        brakesOutputDto.partName = brakes.getPartName();
+        brakesOutputDto.partNumber = brakes.getPartNumber();
+        brakesOutputDto.price = brakes.getPrice();
+        brakesOutputDto.amountOfParts = brakes.getAmountOfParts();
+        brakesOutputDto.centerDiameter = brakes.getCenterDiameter();
+        brakesOutputDto.minThickness = brakes.getMinThickness();
+        brakesOutputDto.surface = brakes.getSurface();
+        brakesOutputDto.discThickness = brakes.getDiscThickness();
+        brakesOutputDto.boreTypeNumberOfHoles = brakes.getBoreTypeNumberOfHoles();
+        brakesOutputDto.wheelStudDiameter = brakes.getWheelStudDiameter();
+        brakesOutputDto.withoutWheelMountingBolts = brakes.getWithoutWheelMountingBolts();
+        brakesOutputDto.withoutWheelHub = brakes.getWithoutWheelHub();
+
+        return brakesOutputDto;
+    }
+
+    public Brakes mapToBrake(BrakesDto brakesDto) {
+        if ( brakesDto == null ) {
+            return null;
+        }
+
+        Brakes brakes = new Brakes();
+
+        brakes.setId( brakesDto.id );
+        brakes.setPartName( brakesDto.partName );
+        brakes.setPartNumber( brakesDto.partNumber );
+        brakes.setPrice( brakesDto.price );
+        brakes.setAmountOfParts( brakesDto.amountOfParts );
+        brakes.setOuterDiameter( brakesDto.outerDiameter );
+        brakes.setCenterDiameter( brakesDto.centerDiameter );
+        brakes.setHeight( brakesDto.height );
+        brakes.setMinThickness( brakesDto.minThickness );
+        brakes.setSurface( brakesDto.surface );
+        brakes.setDiscThickness( brakesDto.discThickness );
+        brakes.setBoreTypeNumberOfHoles( brakesDto.boreTypeNumberOfHoles );
+        brakes.setWheelStudDiameter( brakesDto.wheelStudDiameter );
+        brakes.setWithoutWheelMountingBolts( brakesDto.withoutWheelMountingBolts );
+        brakes.setWithoutWheelHub( brakesDto.withoutWheelHub );
+
+        return brakes;
     }
 
 

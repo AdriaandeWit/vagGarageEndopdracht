@@ -44,32 +44,22 @@ public class CarService {
         return collection;
     }
 
-    public CarOutputDto getCarById(Long id){
-        Optional<Car>car = carRepos.findById(id);
-        if (car.isEmpty()){
-           throw new RecordNotFoundException("Can find"+ car + "please enter another id");
+    public CarOutputDto getCarById(long id){
+        Optional<Car>carOptional = carRepos.findById(id);
+        if (!carOptional.isPresent()){
+           throw new RecordNotFoundException("Can find car please enter another id");
         }
         else {
-            Car c = car.get();
+            Car c = carOptional.get();
             return carToDto(c);
         }
     }
 
-    public CarOutputDto getOwnerById(String owername){
-        Optional<Car> optionalCar = carRepos.findbyNameStarteingWith(owername);
-    if (optionalCar.isEmpty()){
-        throw new RecordNotFoundException("Can find "+ optionalCar + " please enter a anther onwername");
-    }
-    else {
-        Car car = optionalCar.get();
-        return carToDto(car)cr
-    }
-    }
 
     public CarDto updateCarMileage(long id , Integer mileage ){
-        var optionalCar = carRepos.findById(id);
+        Optional<Car> optionalCar = carRepos.findById(id);
         if(optionalCar.isPresent()){
-            var car = optionalCar.get();
+             Car car = optionalCar.get();
             car.setMileage(mileage);
             carRepos.save(car);
         }else {
@@ -79,9 +69,9 @@ public class CarService {
     }
 
     public CarDto updateEngineType(long id , String engineType ){
-        var optionalCar = carRepos.findById(id);
+        Optional<Car> optionalCar = carRepos.findById(id);
         if(optionalCar.isPresent()){
-            var car = optionalCar.get();
+            Car car = optionalCar.get();
             car.setEngineType(engineType);
             carRepos.save(car);
         }else {
@@ -95,13 +85,13 @@ public class CarService {
         if (!carRepos.existsById(id)) {
             throw new CarNotFoundException("Car with id:" + id + "is not found");
         } else {
-            Long count = carRepos.count();
+            long count = carRepos.count();
             carRepos.deleteById(id);
             return "You delete" + count + "in the id" + id;
         }
     }
     public String deleteAllCars(){
-        Long count = carRepos.count();
+        long count = carRepos.count();
         carRepos.deleteAll();
         return "You deleted "+ count + "cars";
     }

@@ -2,19 +2,34 @@ package nl.novi.Eindopdracht.Models.Data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "Costomer",uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"CUSTOMER_NAME", "CUSTOMER_NUMBER"}),
+        @UniqueConstraint(columnNames = {"CUSTOMER_PHONE_NUMBER"})
+})
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class CustomerAccount {
-@Id
 @GeneratedValue
     private Long id;
-    private String customerFirstName;
-    private String customerLastname;
+@Id
+
+    private String customerNam;
+
+    private String firstName;
+    private String lastName;
 
     private String customerNumber;
+    private String customerPhoneNumber;
     private String address;
     private String phoneNumber;
     private String billingAddress;
@@ -26,85 +41,4 @@ public class CustomerAccount {
 
 
 
-/*
-hier komt nog de relatie met car.
-
- */
-
-    //--------------Getters
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getCustomerFirstName() {
-        return customerFirstName;
-    }
-
-    public String getCustomerLastName() {
-        return customerLastname;
-    }
-
-    public String getCustomerNumber() {
-        return customerNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getBillingAddress() {
-        return billingAddress;
-    }
-
-    public String getBankAccountNumber() {
-        return bankAccountNumber;
-    }
-
-    public List<CarOwner> getCarOwners() {
-        return carOwners;
-    }
-//----------------Setters
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setCustomerFirstName(String customerFirstName) {
-        this.customerFirstName = customerFirstName;
-    }
-
-    public void setCustomerLastName(String costumerLastName) {
-        this.customerLastname = costumerLastName;
-    }
-
-    public void setCustomerNumber(String customerNumber) {
-        this.customerNumber = customerNumber;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setBillingAddress(String billingAddress) {
-        this.billingAddress = billingAddress;
-    }
-
-    public void setBankAccountNumber(String bankAccountNumber) {
-        this.bankAccountNumber = bankAccountNumber;
-    }
-
-    public void setCarOwners(List<CarOwner> carOwners) {
-        this.carOwners = carOwners;
-    }
 }

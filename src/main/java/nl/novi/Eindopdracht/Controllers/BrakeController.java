@@ -49,12 +49,14 @@ public class BrakeController {
         BrakesOutputDto brakesOutputDto = brakeService.getBrakeById(id);
         return ResponseEntity.ok(brakesOutputDto);
     }
-
+/*
     @GetMapping("/find/all/brackes/{CarId}")
     public ResponseEntity<List<BrakesOutputDto>>getAllbrakesByCarId(@PathVariable("CarID") long carId){
         List<BrakesOutputDto> brakesOutputDtoList = brakeService.getAllBrakesByCarId(carId);
         return ResponseEntity.ok(brakesOutputDtoList);
+
     }
+*/
     @PutMapping("/update/amountOfParts/{id}")
     public ResponseEntity<Object>updateAmountOfParts(@PathVariable Long id,@RequestParam Integer amountOfParts){
          brakeService.updateAmountOfParts(id,amountOfParts);
@@ -71,15 +73,15 @@ public class BrakeController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/add/brake/{id}/car/{carId}")
-    public ResponseEntity<Object>addBrakeToCar(@PathVariable Long id,@PathVariable ("carId") Long carId){
-        brakeService.addBrakeToCar(id,carId);
-        return  ResponseEntity.ok().build();
-    }
+  //  @PutMapping("/add/brake/{id}/car/{carId}")
+  //  public ResponseEntity<Object>addBrakeToCar(@PathVariable Long id,@PathVariable ("carId") Long carId){
+  //      brakeService.addBrakeToCar(id,carId);
+  //      return  ResponseEntity.ok().build();
+  //  }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteBrakeById(){
-        brakeService.deleteBrakeById();
+    public ResponseEntity<String> deleteBrakeById(Long id){
+        brakeService.deleteBrakeById(id);
         return  ResponseEntity.noContent().build();
     }
     @DeleteMapping("/delete/All")

@@ -42,7 +42,7 @@ public class CustomerAccountService {
 
     public CustomerAccountOutputDto getCustomerById(long id) {
         Optional<CustomerAccount> account = cARepos.findById(id);
-        if (account.isEmpty()){
+        if (!account.isPresent()){
             throw new RecordNotFoundException("cannot find customer please enter a new id ");
         }
         else {
@@ -51,13 +51,13 @@ public class CustomerAccountService {
         }
     }
 
-    public CustomerAccountOutputDto.CustomerNameOutputDto getCustomerByName(String customerFirstname) {
-        Optional<CustomerAccount>accountOptional = cARepos.findbyNameStarteingWith(customerFirstname);
-        if(accountOptional.isEmpty()){
+    public CustomerAccountOutputDto.CustomerNameOutputDto getCustomerByLastName(String customerLastName) {
+        Optional<List<CustomerAccount>> optionalAccounts = cARepos.findByName(customerLastName);
+        if(!optionalAccounts.isPresent()){
             throw new RecordNotFoundException("cannot find customer please enter a anther name");
         }
         else {
-            CustomerAccount a = accountOptional.get();
+            CustomerAccount a = (CustomerAccount) optionalAccounts.get();
             return accountToDTo2(a);
         }
 
@@ -65,7 +65,7 @@ public class CustomerAccountService {
 
     public CustomerAccountOutputDto.CustomerFinanceOutputDto getBillingAddressById(long id) {
         Optional<CustomerAccount>accountOptional = cARepos.findById(id);
-        if (accountOptional.isEmpty()){
+        if (!accountOptional.isPresent()){
             throw  new RecordNotFoundException("cannot find the billing address so please enter a anther id");
         }
         else{
@@ -77,11 +77,11 @@ public class CustomerAccountService {
     public CustomerAccountDto.CustomerNameDto updateCustomerName(long id, String customerFirstname, String customerLastName) {
             Optional<CustomerAccount> accountOptional = cARepos.findById(id);
 
-            if (accountOptional.isEmpty()){
+            if (!accountOptional.isPresent()){
                 throw new RecordNotFoundException("Can not find "+ customerFirstname + customerLastName+ "so please enter a anther id ");
             }
             else {
-                var name = accountOptional.get();
+                CustomerAccount name = accountOptional.get();
                 name.setCustomerFirstName(customerFirstname);
                 name.setCustomerLastName(customerLastName);
                 cARepos.save(name);
@@ -93,11 +93,11 @@ public class CustomerAccountService {
 
     public CustomerAccountDto.CustomerFinanceDto updateFinance(long id, String billingAdress, String bankAccountNumber) {
         Optional<CustomerAccount> accountOptional =cARepos.findById(id);
-        if(accountOptional.isEmpty()){
+        if(!accountOptional.isPresent()){
             throw new RecordNotFoundException("cannot find the files, please give me anther id");
         }
         else {
-            var a =accountOptional.get();
+            CustomerAccount a =accountOptional.get();
             a.setBankAccountNumber(bankAccountNumber);
             a.setBillingAddress(billingAdress);
             cARepos.save(a);

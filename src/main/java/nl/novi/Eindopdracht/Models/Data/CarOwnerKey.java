@@ -1,38 +1,23 @@
 package nl.novi.Eindopdracht.Models.Data;
 
 import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Objects;
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class CarOwnerKey implements Serializable {
     @Column(name = "car_id")
     private Long carId;
 
     @Column(name = "owner_Id")
     private Long ownerId;
-
-    public CarOwnerKey() {}
-    public CarOwnerKey(Long carId, Long ownerId) {
-        this.carId = carId;
-        this.ownerId = ownerId;
-    }
-
-    public Long getCarId() {
-        return carId;
-    }
-
-    public Long getOwnerId() {
-        return ownerId;
-    }
-
-    public void setCarId(Long carId) {
-        this.carId = carId;
-    }
-
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
 
     @Override
     public boolean equals(Object o) {

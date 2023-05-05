@@ -1,64 +1,28 @@
 package nl.novi.Eindopdracht.Models.Data.CarParts;
 
-import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import lombok.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @MappedSuperclass
 public class CarParts {
     @Id
     @GeneratedValue
+    @NonNull
     private Long id;
+    @NonNull
     private String partName;
+    @NonNull
      private String partNumber;
+    @NonNull
     private Double price;
+    @NonNull
     private Integer amountOfParts;
-
-    public CarParts(Long id, String partName, String partNumber, Double price, Integer amountOfParts) {
-    }
-
-    public CarParts() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getPartName() {
-        return partName;
-    }
-
-    public String getPartNumber() {
-        return partNumber;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public Integer getAmountOfParts() {
-        return amountOfParts;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPartName(String partName) {
-        this.partName = partName;
-    }
-
-    public void setPartNumber(String partNumber) {
-        this.partNumber = partNumber;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public void setAmountOfParts(Integer amountOfParts) {
-        this.amountOfParts = amountOfParts;
-    }
 }

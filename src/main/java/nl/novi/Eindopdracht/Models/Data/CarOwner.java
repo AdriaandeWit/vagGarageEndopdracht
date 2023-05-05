@@ -1,6 +1,15 @@
 package nl.novi.Eindopdracht.Models.Data;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 
 @Entity
 public class CarOwner {
@@ -20,29 +29,8 @@ public class CarOwner {
     @JoinColumn(name = "owner_id")
     private CustomerAccount customerAccount;
 
-    public CarOwnerKey getId() {
-        return id;
-    }
 
-    public void setId(CarOwnerKey id) {
-        this.id = id;
-    }
 
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public CustomerAccount getCustomerAccount() {
-        return customerAccount;
-    }
-
-    public void setCustomerAccount(CustomerAccount customerAccount) {
-        this.customerAccount = customerAccount;
-    }
 }
 
 
