@@ -13,7 +13,6 @@ import java.util.List;
 
 @AllArgsConstructor
 
-
 @RequestMapping("/car/parts/sprakplugs")
 @RestController
 public class SparkPlugController {
