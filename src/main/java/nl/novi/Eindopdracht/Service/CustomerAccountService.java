@@ -6,7 +6,6 @@ import nl.novi.Eindopdracht.Repository.CarOwnerRepository;
 import nl.novi.Eindopdracht.Repository.CustomerAccountRepository;
 import nl.novi.Eindopdracht.dto.input.CustomerAccountDto;
 import nl.novi.Eindopdracht.dto.output.CustomerAccountOutputDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.Optional;
 @Service
 public class CustomerAccountService {
 
-@Autowired
+
     private final CustomerAccountRepository cARepos;
 
     public CustomerAccountService(CustomerAccountRepository cARepos,CarOwnerRepository carOwnerRepos) {
@@ -52,7 +51,7 @@ public class CustomerAccountService {
     }
 
     public CustomerAccountOutputDto.CustomerNameOutputDto getCustomerByLastName(String customerLastName) {
-        Optional<List<CustomerAccount>> optionalAccounts = cARepos.findByName(customerLastName);
+        Optional<List<CustomerAccount>> optionalAccounts = cARepos.findByLastName(customerLastName);
         if(!optionalAccounts.isPresent()){
             throw new RecordNotFoundException("cannot find customer please enter a anther name");
         }
@@ -74,16 +73,16 @@ public class CustomerAccountService {
         }
     }
 
-    public CustomerAccountDto.CustomerNameDto updateCustomerName(long id, String customerFirstname, String customerLastName) {
+    public CustomerAccountDto.CustomerNameDto updateCustomerName(long id, String firstName, String LastName) {
             Optional<CustomerAccount> accountOptional = cARepos.findById(id);
 
             if (!accountOptional.isPresent()){
-                throw new RecordNotFoundException("Can not find "+ customerFirstname + customerLastName+ "so please enter a anther id ");
+                throw new RecordNotFoundException("Can not find "+ firstName + LastName + "so please enter a anther id ");
             }
             else {
                 CustomerAccount name = accountOptional.get();
-                name.setCustomerFirstName(customerFirstname);
-                name.setCustomerLastName(customerLastName);
+                name.setFirstName(firstName);
+                name.setLastName(LastName);
                 cARepos.save(name);
                 return null;
             }
@@ -117,9 +116,10 @@ public class CustomerAccountService {
         CustomerAccountOutputDto dto = new CustomerAccountOutputDto();
 
         dto.id = account.getId();
-        dto.customerFirstName = account.getCustomerFirstName();
-        dto.customerLastName = account.getCustomerLastName();
-        dto.costumerNumber = account.getCustomerNumber();
+        dto.customerName = account.getCustomerName();
+        dto.firstName = account.getFirstName();
+        dto.lastName = account.getLastName();
+        dto.customerNumber= account.getCustomerNumber();
         dto.address = account.getAddress();
         dto.phoneNumber =account.getPhoneNumber();
         dto.billingAddress = account.getBillingAddress();
@@ -131,8 +131,8 @@ public class CustomerAccountService {
         CustomerAccountOutputDto.CustomerNameOutputDto dto = new CustomerAccountOutputDto.CustomerNameOutputDto();
 
 
-        dto.customerFirstName = account.getCustomerFirstName();
-        dto.customerLastname = account.getCustomerLastName();
+        dto.firstName = account.getFirstName();
+        dto.lastName = account.getLastName();
 
 
         return dto;
@@ -146,18 +146,18 @@ public class CustomerAccountService {
         return dto;
     }
 
-
-
     public CustomerAccount DtoToAccount(CustomerAccountDto.CustomerAccountAllDto accountDto){
         CustomerAccount account =new CustomerAccount();
 
-        account.setCustomerFirstName(accountDto.costumerFirstName);
-        account.setCustomerLastName(accountDto.costumerLastName);
-        account.setCustomerNumber(accountDto.CostumerNumber);
-        account.setAddress(accountDto.address);
-        account.setPhoneNumber(accountDto.phoneNumber);
-        account.setBillingAddress(accountDto.billingAddress);
-        account.setBankAccountNumber(accountDto.bankAccountNumber);
+            account.setCustomerName(accountDto.customerName);
+            account.setFirstName(accountDto.firstName);
+            account.setLastName(accountDto.lastName);
+            account.setCustomerNumber(accountDto.costumerNumber);
+            account.setAddress(accountDto.address);
+            account.setPhoneNumber(accountDto.phoneNumber);
+            account.setBillingAddress(accountDto.billingAddress);
+            account.setBankAccountNumber(accountDto.bankAccountNumber);
+
 
         return account;
     }

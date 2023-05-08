@@ -1,5 +1,7 @@
 package nl.novi.Eindopdracht.Models.Data;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +13,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CarReparation {
 
+@Entity
+public class CarRepair {
+@Id
 private Long id;
-private String Car;
-
+private String car;
 private String carProblem;
 private LocalDate repairDate;
 private Double partCost;

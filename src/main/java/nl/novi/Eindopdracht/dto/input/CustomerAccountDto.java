@@ -5,9 +5,10 @@ public class CustomerAccountDto {
 
     public static class CustomerAccountAllDto {
     public Long id;
-    public String costumerFirstName;
-    public String costumerLastName;
-    public String CostumerNumber;
+    public String customerName;
+    public String firstName;
+    public String lastName;
+    public String costumerNumber;
     public String address;
     public String phoneNumber;
     public String billingAddress;
@@ -15,8 +16,8 @@ public class CustomerAccountDto {
 }
     public static class CustomerNameDto {
 
-        public String customerFirstName;
-        public String customerLastname;
+        public String firstName;
+        public String lastname;
     }
     public static class CustomerFinanceDto {
 

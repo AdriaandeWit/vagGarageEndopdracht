@@ -19,13 +19,13 @@ public class CarOwner {
 
     // Dit is de owner kan van de relatie. Er staat een foreign key in de database
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("carId")
+    @MapsId("id")
     @JoinColumn(name = "car_id")
     private Car car;
 
     // Dit is de owner kan van de relatie. Er staat een foreign key in de database
     @ManyToOne
-    @MapsId("ownerId")
+    @MapsId("id")
     @JoinColumn(name = "owner_id")
     private CustomerAccount customerAccount;
 

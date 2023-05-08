@@ -37,19 +37,20 @@ public class CarOwnerService {
 
     public Collection<CustomerAccountOutputDto> getAccountByCarId(Long carId) {
         Collection<CustomerAccountOutputDto> dtoCollection = new HashSet<>();
-        Collection<CarOwner> owners = carOwnerRepository.findOwnerByCar(carId);
+        Collection<CarOwner> owners = carOwnerRepository.findAllByCar_Id(carId);
         for (CarOwner carOwner : owners) {
-            CustomerAccount customerAccount = carOwner.getCustomerAccount();
+            CustomerAccount account = carOwner.getCustomerAccount();
             CustomerAccountOutputDto accountAllOutputDto = new CustomerAccountOutputDto();
 
-            accountAllOutputDto.setId(customerAccount.getId());
-            accountAllOutputDto.setCustomerFirstName(customerAccount.getCustomerFirstName());
-            accountAllOutputDto.setCustomerLastName(customerAccount.getCustomerLastName());
-            accountAllOutputDto.setCostumerNumber(customerAccount.getCustomerNumber());
-            accountAllOutputDto.setAddress(customerAccount.getAddress());
-            accountAllOutputDto.setPhoneNumber(customerAccount.getPhoneNumber());
-            accountAllOutputDto.setBillingAddress(customerAccount.getBillingAddress());
-            accountAllOutputDto.setBankAccountNumber(customerAccount.getBankAccountNumber());
+            accountAllOutputDto.setId(account.getId());
+            accountAllOutputDto.setCustomerName(account.getCustomerName());
+            accountAllOutputDto.setFirstName(account.getFirstName());
+            accountAllOutputDto.setLastName(account.getLastName());
+            accountAllOutputDto.setCustomerNumber(account.getCustomerNumber());
+            accountAllOutputDto.setAddress(account.getAddress());
+            accountAllOutputDto.setPhoneNumber(account.getPhoneNumber());
+            accountAllOutputDto.setBillingAddress(account.getBillingAddress());
+            accountAllOutputDto.setBankAccountNumber(account.getBankAccountNumber());
 
             dtoCollection.add(accountAllOutputDto);
         }
@@ -58,7 +59,7 @@ public class CarOwnerService {
 
     public Collection<CarOutputDto> getCarByCustomerId(Long OwnerId) {
         Collection<CarOutputDto> dtos = new HashSet<>();
-        List<CarOwner> carOwners = carOwnerRepository.findAllByCarsId(OwnerId);
+        List<CarOwner> carOwners = carOwnerRepository.findAllByCustomerAccount_Id(OwnerId);
         for (CarOwner carOwner : carOwners) {
             Car car = carOwner.getCar();
             CarOutputDto dto = new CarOutputDto();

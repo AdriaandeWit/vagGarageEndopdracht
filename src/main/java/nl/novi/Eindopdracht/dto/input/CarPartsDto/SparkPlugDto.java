@@ -5,7 +5,7 @@ public class SparkPlugDto extends CarPartsDto{
     public   int spannerSize;
     public String quality;
     public int warmthDegree;
-    public Double threadLenght;
+    public Double threadLength;
     public int torque;
     public int sparkPosition;
 }

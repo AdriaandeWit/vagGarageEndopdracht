@@ -6,7 +6,6 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Getter
 @Setter
 
@@ -16,7 +15,7 @@ public class SparkPlug extends CarParts {
     private  int spannerSize;
     private String quality;
     private int warmthDegree;
-    private Double threadLenght;
+    private Double threadLength;
     private int torque;
     private int sparkPosition;
 

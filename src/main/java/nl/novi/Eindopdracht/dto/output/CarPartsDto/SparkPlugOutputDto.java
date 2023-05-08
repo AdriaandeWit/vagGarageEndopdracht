@@ -1,11 +1,11 @@
-package nl.novi.Eindopdracht.dto.output;
+package nl.novi.Eindopdracht.dto.output.CarPartsDto;
 
 public class SparkPlugOutputDto extends CarPartsOutputDto {
 
-    public   int spannerSize;
+    public int spannerSize;
     public String quality;
     public int warmthDegree;
-    public Double threadLenght;
+    public Double threadLength;
     public int torque;
     public int sparkPosition;
 }

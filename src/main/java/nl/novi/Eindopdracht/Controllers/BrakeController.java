@@ -3,7 +3,7 @@ package nl.novi.Eindopdracht.Controllers;
 import nl.novi.Eindopdracht.Service.BrakeService;
 import nl.novi.Eindopdracht.Service.CarService;
 import nl.novi.Eindopdracht.dto.input.CarPartsDto.BrakesDto;
-import nl.novi.Eindopdracht.dto.output.BrakesOutputDto;
+import nl.novi.Eindopdracht.dto.output.CarPartsDto.BrakesOutputDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@RequestMapping("/carpatrs/brakes")
+@RequestMapping("/car/parts/brakes")
 @RestController
 public class BrakeController {
 
@@ -27,7 +27,7 @@ public class BrakeController {
 
 
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<Object>createBrake(@RequestBody BrakesDto brakesDto){
         Long id =brakeService.createBrake(brakesDto);
         brakesDto.id= id;
@@ -38,13 +38,13 @@ public class BrakeController {
 
     }
 
-    @GetMapping("find/all/")
+    @GetMapping("/find/all")
     public ResponseEntity<List<BrakesOutputDto>>getAllBrakes(){
         List<BrakesOutputDto> brakesOutputDtoList = brakeService.getAllBrakes();
         return ResponseEntity.ok(brakesOutputDtoList);
     }
 
-    @GetMapping("find/{id}")
+    @GetMapping("/find/{id}")
     public ResponseEntity<BrakesOutputDto>getBrakeById(@PathVariable long id){
         BrakesOutputDto brakesOutputDto = brakeService.getBrakeById(id);
         return ResponseEntity.ok(brakesOutputDto);

@@ -1,4 +1,4 @@
-package nl.novi.Eindopdracht.dto.output;
+package nl.novi.Eindopdracht.dto.output.CarPartsDto;
 
 public class BrakesOutputDto extends CarPartsOutputDto {
 

@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface CarOwnerRepository extends JpaRepository<CarOwner, CarOwnerKey> {
 
-    List<CarOwner> findAllByCarsId(Long owner_Id);
+    List<CarOwner> findAllByCustomerAccount_Id(Long owner_Id);
 
-    Collection<CarOwner>findOwnerByCar(Long car_ID);
+    Collection<CarOwner> findAllByCar_Id(Long car_ID);
 
 
 }

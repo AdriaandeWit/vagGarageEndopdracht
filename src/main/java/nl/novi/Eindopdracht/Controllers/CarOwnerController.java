@@ -16,7 +16,7 @@ public class CarOwnerController {
     public CarOwnerController(CarOwnerService carOwnerService) {
         this.carOwnerService = carOwnerService;
     }
-    @PutMapping("/{carId}/{ownerId")
+    @PutMapping("/{carId}/{ownerId}")
     public ResponseEntity<CarOwnerKey> addAccountToCar(@PathVariable("carId") Long carId,@PathVariable("ownerId") Long ownerId){
         CarOwnerKey key = carOwnerService.addAccountToCar(carId,ownerId);
         return ResponseEntity.created(null).body(key);

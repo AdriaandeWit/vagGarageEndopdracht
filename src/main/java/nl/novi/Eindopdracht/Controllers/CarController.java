@@ -64,7 +64,7 @@ public class CarController {
         return ResponseEntity.ok(carDto);
     }
 
-    @PutMapping("/update/mileage/{id}")
+    @PutMapping("/update/engineType/{id}")
     public ResponseEntity<CarDto> updateEngineType(@PathVariable long id, @RequestParam String engineType){
         CarDto carDto = carService.updateEngineType(id,engineType);
         return ResponseEntity.ok(carDto);

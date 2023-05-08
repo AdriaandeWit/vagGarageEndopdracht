@@ -1,18 +1,18 @@
 package nl.novi.Eindopdracht.Service;
 
+import lombok.AllArgsConstructor;
 import nl.novi.Eindopdracht.Exceptions.RecordNotFoundException;
 import nl.novi.Eindopdracht.Models.Data.CarParts.Brakes;
 import nl.novi.Eindopdracht.Repository.BrakeRepository;
 import nl.novi.Eindopdracht.Repository.CarRepository;
 import nl.novi.Eindopdracht.dto.input.CarPartsDto.BrakesDto;
-import nl.novi.Eindopdracht.dto.output.BrakesOutputDto;
+import nl.novi.Eindopdracht.dto.output.CarPartsDto.BrakesOutputDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
+@AllArgsConstructor
 @Service
 public class BrakeService {
 
@@ -20,13 +20,6 @@ public class BrakeService {
 
     private final CarRepository  carRepos;
 
-
-
-
-    public BrakeService(BrakeRepository brakeRepos, CarRepository carRepos ) {
-        this.brakeRepos = brakeRepos;
-        this.carRepos = carRepos;
-    }
 
 
     public Long createBrake(BrakesDto brakesDto ) {

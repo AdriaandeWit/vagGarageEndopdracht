@@ -10,7 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@RequiredArgsConstructor
 @MappedSuperclass
 public class CarParts {
     @Id

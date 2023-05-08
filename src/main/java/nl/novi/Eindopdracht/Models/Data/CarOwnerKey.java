@@ -1,6 +1,8 @@
 package nl.novi.Eindopdracht.Models.Data;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
+
+@Embeddable
 public class CarOwnerKey implements Serializable {
     @Column(name = "car_id")
     private Long carId;

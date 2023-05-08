@@ -6,7 +6,7 @@ public class TyresDto extends CarPartsDto{
 
     public Double tyresHight;
     public Double tyresWidth;
-    public int Diameter;
+    public int diameter;
     public String loadIndex;
     public String speedIndex;
     public Date productionDate;
