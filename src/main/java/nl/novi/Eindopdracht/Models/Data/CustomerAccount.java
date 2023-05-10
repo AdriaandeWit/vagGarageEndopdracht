@@ -23,11 +23,8 @@ public class CustomerAccount{
     private Long id;
 @Id         // TODO: 08/05/2023 vraag aan mark of je een een string met een long gekoppeld kan worden.
     private String customerName;
-
     private String firstName;
     private String lastName;
-
-    private String customerNumber;
     private String address;
     private String phoneNumber;
     private String billingAddress;
@@ -35,8 +32,7 @@ public class CustomerAccount{
 
     @OneToMany
     @JsonIgnore
-    List<CarOwner> carOwners;
-
+    List<Car> cars;
 
 
 }

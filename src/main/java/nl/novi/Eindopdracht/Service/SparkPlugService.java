@@ -131,7 +131,7 @@ return
         sparkPlugOutputDto.spannerSize =sparkPlug.getSpannerSize();
         sparkPlugOutputDto.quality = sparkPlug.getQuality();
         sparkPlugOutputDto.warmthDegree = sparkPlug.getWarmthDegree();
-        sparkPlugOutputDto.threadLength = sparkPlug.getThreadLenght();
+        sparkPlugOutputDto.threadLength = sparkPlug.getThreadLength();
         sparkPlugOutputDto.torque = sparkPlug.getTorque();
         sparkPlugOutputDto.sparkPosition = sparkPlug.getSparkPosition();
 
@@ -153,7 +153,7 @@ return
         sp.setSpannerSize( SPDto.spannerSize );
         sp.setQuality( SPDto.quality );
         sp.setWarmthDegree( SPDto.warmthDegree );
-        sp.setThreadLenght( SPDto.threadLength);
+        sp.setThreadLength( SPDto.threadLength);
         sp.setTorque( SPDto.torque);
         sp.setSparkPosition( SPDto.sparkPosition );
 

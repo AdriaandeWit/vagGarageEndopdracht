@@ -1,8 +1,9 @@
 package nl.novi.Eindopdracht.Controllers;
 
 
-import nl.novi.Eindopdracht.Service.CarOwnerService;
+import lombok.AllArgsConstructor;
 import nl.novi.Eindopdracht.Service.CarService;
+import nl.novi.Eindopdracht.Service.CustomerAccountService;
 import nl.novi.Eindopdracht.dto.input.CarDto;
 import nl.novi.Eindopdracht.dto.output.CarOutputDto;
 import nl.novi.Eindopdracht.dto.output.CustomerAccountOutputDto;
@@ -11,21 +12,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Collection;
 import java.util.List;
 @RequestMapping("car")
 @RestController
-
+@AllArgsConstructor
 public class CarController {
 
     private final CarService carService;
 
-    private final CarOwnerService carOwnerService;
+    private final CustomerAccountService cAService;
 
-    public CarController(CarService carService, CarOwnerService carOwnerService) {
-        this.carService = carService;
-        this.carOwnerService = carOwnerService;
-    }
+
+
 
 
     @PostMapping
@@ -45,40 +43,40 @@ public class CarController {
         return ResponseEntity.ok(carOutputDto);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<CarOutputDto > getCarById(@PathVariable long id ){
-        CarOutputDto carOutputDto = carService.getCarById(id);
+    @GetMapping("/find")
+    public ResponseEntity<CarOutputDto > getCarById(@RequestParam String licensePlate ){
+        CarOutputDto carOutputDto = carService.getCarByCarId(licensePlate);
         return ResponseEntity.ok(carOutputDto);
     }
 
-    @GetMapping("/find/{carId}")
-    public ResponseEntity<Collection<CustomerAccountOutputDto>> getAccountByCarId(@PathVariable Long carId){
-        Collection<CustomerAccountOutputDto> account = carOwnerService.getAccountByCarId(carId);
+    @GetMapping("/find")
+    public ResponseEntity<CustomerAccountOutputDto> getAccountByLicensePlate(@RequestParam String licensePlate){
+        CustomerAccountOutputDto account = cAService.getAccountByLicensePlate(licensePlate);
         return ResponseEntity.ok(account);
     }
 
-    @PutMapping("/update/mileage/{id}")
-    public ResponseEntity<CarDto> updateCarMileage(@PathVariable long id,@RequestParam Integer mileage   ){
+    @PutMapping("/update/mileage")
+    public ResponseEntity<CarDto> updateCarMileage(@RequestParam  String licensePlate ,@RequestParam Integer mileage   ){
 
-        CarDto carDto =  carService.updateCarMileage(id, mileage);
+        CarDto carDto =  carService.updateCarMileage(licensePlate ,mileage);
         return ResponseEntity.ok(carDto);
     }
 
-    @PutMapping("/update/engineType/{id}")
-    public ResponseEntity<CarDto> updateEngineType(@PathVariable long id, @RequestParam String engineType){
-        CarDto carDto = carService.updateEngineType(id,engineType);
+    @PutMapping("/update/engineType")
+    public ResponseEntity<CarDto> updateEngineType(@RequestParam String licensePlate, @RequestParam String engineType){
+        CarDto carDto = carService.updateEngineType(licensePlate,engineType);
         return ResponseEntity.ok(carDto);
 
     }
-    @PutMapping("/car/owner/{id}/{ownerId}")
-    public ResponseEntity<Object>addAccountToCar(@PathVariable Long id, @PathVariable("owenerId") Long ownerId){
-        carOwnerService.addAccountToCar(id,ownerId);
+    @PutMapping("/car/owner")
+    public ResponseEntity<Object>addAccountToCar(@RequestParam String licensePlate, @RequestParam String customerName){
+        carService.addAccountToCar(licensePlate,customerName);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteCarById(@PathVariable long id){
-        carService.deleteCarById(id);
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteCarById(@RequestParam String licensePlate){
+        carService.deleteCarByLicensePlate(licensePlate);
         return ResponseEntity.noContent().build();
     }
 

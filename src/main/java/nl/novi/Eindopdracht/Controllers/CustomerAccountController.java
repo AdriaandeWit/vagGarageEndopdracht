@@ -1,6 +1,7 @@
 package nl.novi.Eindopdracht.Controllers;
 
-import nl.novi.Eindopdracht.Service.CarOwnerService;
+
+import lombok.AllArgsConstructor;
 import nl.novi.Eindopdracht.Service.CustomerAccountService;
 import nl.novi.Eindopdracht.dto.input.CustomerAccountDto;
 import nl.novi.Eindopdracht.dto.output.CarOutputDto;
@@ -12,19 +13,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Collection;
 import java.util.List;
-
+@AllArgsConstructor
 @RequestMapping("customer")
-
+@RestController
 public class CustomerAccountController {
 
     private final CustomerAccountService cAService;
 
-    private final CarOwnerService carOwnerService;
-
-    public CustomerAccountController(CustomerAccountService cAService, CarOwnerService carOwnerService) {
-        this.cAService = cAService;
-        this.carOwnerService = carOwnerService;
-    }
 
     @PostMapping()
     public ResponseEntity<Object> createCustomer(@RequestBody CustomerAccountDto.CustomerAccountAllDto cADto){
@@ -61,9 +56,9 @@ public class CustomerAccountController {
         CustomerAccountOutputDto.CustomerFinanceOutputDto customer = cAService.getBillingAddressById(id);
         return ResponseEntity.ok(customer);
     }
-    @GetMapping("/find/car/{owner_id}")
-    public ResponseEntity<Collection<CarOutputDto>>getCarByCustomerId(@PathVariable long owner_id){
-       Collection<CarOutputDto> car = carOwnerService.getCarByCustomerId(owner_id);
+    @GetMapping("/find/car")
+    public ResponseEntity<Collection<CarOutputDto>> getCarsByCustomerName(@RequestParam String customerName) {
+        Collection<CarOutputDto> car = cAService.getCarByCustomerName(customerName);
         return ResponseEntity.ok(car);
     }
 

@@ -1,15 +1,17 @@
 package nl.novi.Eindopdracht.dto.input;
 
-import nl.novi.Eindopdracht.Models.Data.CarOwner;
+import nl.novi.Eindopdracht.Models.Data.CarBrand;
+import nl.novi.Eindopdracht.Models.Data.CarModel;
+import nl.novi.Eindopdracht.Models.Data.CustomerAccount;
 
 import java.time.LocalDate;
-import java.util.List;
+
 
 public class CarDto {
 
     public Long id;
-    public String brand;
-    public String model;
+    public CarBrand brand;
+    public CarModel model;
     public LocalDate yearOfBuild;
     public String color;
     public String licensePlate;
@@ -19,5 +21,5 @@ public class CarDto {
     public String transmission;
     public String fuel;
 
-    public List<CarOwner> carOwners;
+    public CustomerAccount account;
 }

@@ -1,5 +1,10 @@
 package nl.novi.Eindopdracht.dto.input;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CustomerAccountDto {
 
 
@@ -8,7 +13,6 @@ public class CustomerAccountDto {
     public String customerName;
     public String firstName;
     public String lastName;
-    public String costumerNumber;
     public String address;
     public String phoneNumber;
     public String billingAddress;
