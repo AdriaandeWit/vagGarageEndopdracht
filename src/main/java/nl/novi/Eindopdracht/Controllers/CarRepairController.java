@@ -14,9 +14,9 @@ import java.util.List;
 
 @AllArgsConstructor
 
-@RequestMapping("carrepair")
+@RequestMapping("carRepair")
 @RestController
-public class CarReparationController {
+public class CarRepairController {
 
 private final CarReparationService reparationService;
 
@@ -42,23 +42,23 @@ private final CarReparationService reparationService;
   return ResponseEntity.ok(dto);
   }
 
-  @PutMapping("/update/carproblem/{id}")
+  @PutMapping("/update/car-problem/{id}")
   public ResponseEntity<CarRepairDto>updateCarProblem(@PathVariable long id,@RequestBody String carProblem){
     CarRepairDto dto = reparationService.updateCarProblem(id,carProblem);
     return ResponseEntity.ok(dto);
   }
-  @PutMapping("/update/repairdate/{id}")
+  @PutMapping("/update/repair-date/{id}")
   public ResponseEntity<CarRepairDto>updateRepairDate(@PathVariable long id,@RequestBody LocalDate repairDate){
     CarRepairDto dto = reparationService.updateRepairDate(id,repairDate);
     return  ResponseEntity.ok(dto);
   }
-  @DeleteMapping("/delte/{id}")
+  @DeleteMapping("/delete/{id}")
   public ResponseEntity<String> deleteRepairById(@PathVariable long id){
     reparationService.deleteRepairById(id);
     return ResponseEntity.noContent().build();
   }
   @DeleteMapping("/delete/all")
-  public ResponseEntity<String>deleteAllrepairs(){
+  public ResponseEntity<String> deleteAllRepairs(){
     reparationService.deleteAllRepairs();
     return ResponseEntity.noContent().build();
   }

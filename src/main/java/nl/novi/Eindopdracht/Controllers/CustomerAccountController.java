@@ -2,6 +2,7 @@ package nl.novi.Eindopdracht.Controllers;
 
 
 import lombok.AllArgsConstructor;
+import nl.novi.Eindopdracht.Service.CarService;
 import nl.novi.Eindopdracht.Service.CustomerAccountService;
 import nl.novi.Eindopdracht.dto.input.CustomerAccountDto;
 import nl.novi.Eindopdracht.dto.output.CarOutputDto;
@@ -20,6 +21,8 @@ public class CustomerAccountController {
 
     private final CustomerAccountService cAService;
 
+    private final CarService carService;
+
 
     @PostMapping()
     public ResponseEntity<Object> createCustomer(@RequestBody CustomerAccountDto.CustomerAccountAllDto cADto){
@@ -34,51 +37,51 @@ public class CustomerAccountController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerAccountOutputDto>> getAllCustemers(){
+    public ResponseEntity<List<CustomerAccountOutputDto>> getAllCustomers(){
         List<CustomerAccountOutputDto> customers = cAService.getAllCustomers();
         return ResponseEntity.ok(customers);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<CustomerAccountOutputDto > getCustomerById(@PathVariable long id ){
-        CustomerAccountOutputDto customer = cAService.getCustomerById(id);
+    @GetMapping("/find")
+    public ResponseEntity<CustomerAccountOutputDto > getCustomerByCustomerName(@RequestParam String customerName ){
+        CustomerAccountOutputDto customer = cAService.getCustomerByCustomerName(customerName);
         return ResponseEntity.ok(customer);
     }
 
-    @GetMapping("/find/{costumerFirstname}")
-    public ResponseEntity<CustomerAccountOutputDto.CustomerNameOutputDto> getCustomerByName(@PathVariable String costumerFirstname){
+    @GetMapping("/find")
+    public ResponseEntity<CustomerAccountOutputDto.CustomerNameOutputDto> getCustomerByName(@RequestParam String costumerFirstname){
         CustomerAccountOutputDto.CustomerNameOutputDto customer = cAService.getCustomerByLastName(costumerFirstname);
         return ResponseEntity.ok(customer);
     }
 
-    @GetMapping("/find/billingaddress/{id}")
-    public ResponseEntity<CustomerAccountOutputDto.CustomerFinanceOutputDto>getBillingAddressById(@PathVariable long id){
-        CustomerAccountOutputDto.CustomerFinanceOutputDto customer = cAService.getBillingAddressById(id);
+    @GetMapping("/find/billing-address")
+    public ResponseEntity<CustomerAccountOutputDto.CustomerFinanceOutputDto>getBillingAddressByCustomermerName(@RequestParam String costumerName){
+        CustomerAccountOutputDto.CustomerFinanceOutputDto customer = cAService.getBillingAddressByCustomerName(costumerName);
         return ResponseEntity.ok(customer);
     }
     @GetMapping("/find/car")
     public ResponseEntity<Collection<CarOutputDto>> getCarsByCustomerName(@RequestParam String customerName) {
-        Collection<CarOutputDto> car = cAService.getCarByCustomerName(customerName);
+        Collection<CarOutputDto> car = carService.getAllCarsByCustomerName(customerName);
         return ResponseEntity.ok(car);
     }
 
     @PutMapping("/update/name/{id}")
-    public ResponseEntity<CustomerAccountDto.CustomerNameDto> updateCustomerName(@PathVariable long id, @RequestParam String customerFirstname, @RequestParam String customerLastName){
+    public ResponseEntity<CustomerAccountDto.CustomerNameDto> updateCustomerNameById(@PathVariable long id, @RequestParam String customerFirstname, @RequestParam String customerLastName){
 
-        CustomerAccountDto.CustomerNameDto customer =  cAService.updateCustomerName(id,customerFirstname,customerLastName);
+        CustomerAccountDto.CustomerNameDto customer =  cAService.updateCustomerNameById(id,customerFirstname,customerLastName);
         return ResponseEntity.ok(customer);
     }
 
-    @PutMapping("/update/address/{id}")
-    public ResponseEntity<CustomerAccountDto.CustomerFinanceDto> updateFinance(@PathVariable long id, @RequestParam String billingAdress, @RequestParam String bankAccountNumber){
-        CustomerAccountDto.CustomerFinanceDto customer = cAService.updateFinance(id,billingAdress,bankAccountNumber);
+    @PutMapping("/update/address")
+    public ResponseEntity<CustomerAccountDto.CustomerFinanceDto> updateFinanceByCustomerName(@RequestParam String customerName, @RequestParam String billingAdress, @RequestParam String bankAccountNumber){
+        CustomerAccountDto.CustomerFinanceDto customer = cAService.updateFinance(customerName,billingAdress,bankAccountNumber);
         return ResponseEntity.ok(customer);
 
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteCustomerById(@PathVariable long id){
-        cAService.deleteCustomerById(id);
+    @DeleteMapping("/delete/by-name")
+    public ResponseEntity<String> deleteCustomerByCustomerName(@RequestParam String customerName){
+        cAService.deleteCustomerByCustomerName(customerName);
         return ResponseEntity.noContent().build();
     }
 

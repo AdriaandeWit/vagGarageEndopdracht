@@ -1,15 +1,11 @@
 package nl.novi.Eindopdracht.dto.output;
 
-import lombok.Getter;
-import lombok.Setter;
-import nl.novi.Eindopdracht.Models.Data.CarBrand;
-import nl.novi.Eindopdracht.Models.Data.CarModel;
-import nl.novi.Eindopdracht.Models.Data.CustomerAccount;
+
+import nl.novi.Eindopdracht.Models.Colors;
+import nl.novi.Eindopdracht.Models.Data.*;
 
 
 import java.time.LocalDate;
-@Getter
-@Setter
 
 public class CarOutputDto {
     public Long id;
@@ -17,13 +13,13 @@ public class CarOutputDto {
 
     public CarModel model;
     public LocalDate yearOfBuild;
-    public String color;
+    public Colors color;
     public String licensePlate;
     public Integer mileage;
-    public String engineType;
-    public String body;
-    public String transmission;
-    public String fuel;
+    public EngineType engineType;
+    public Body body;
+    public Transmission transmission;
+    public Fuel fuel;
 
     public CustomerAccount account;
 

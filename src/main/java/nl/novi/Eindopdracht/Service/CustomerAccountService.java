@@ -1,11 +1,11 @@
 package nl.novi.Eindopdracht.Service;
 
 import lombok.AllArgsConstructor;
+import nl.novi.Eindopdracht.Exceptions.AccountNotFoundException;
 import nl.novi.Eindopdracht.Exceptions.CarNotFoundException;
 import nl.novi.Eindopdracht.Exceptions.RecordNotFoundException;
 import nl.novi.Eindopdracht.Models.Data.Car;
 import nl.novi.Eindopdracht.Models.Data.CustomerAccount;
-import nl.novi.Eindopdracht.Repository.CarOwnerRepository;
 import nl.novi.Eindopdracht.Repository.CarRepository;
 import nl.novi.Eindopdracht.Repository.CustomerAccountRepository;
 import nl.novi.Eindopdracht.dto.input.CustomerAccountDto;
@@ -21,7 +21,7 @@ public class CustomerAccountService {
 
     private final CustomerAccountRepository cARepos;
 
-    private final CarRepository carRepository;
+    private final CarRepository carRepos;
 
 
 
@@ -42,9 +42,9 @@ public class CustomerAccountService {
         return collection;
     }
 
-    public CustomerAccountOutputDto getCustomerById(long id) {
-        Optional<CustomerAccount> account = cARepos.findById(id);
-        if (!account.isPresent()) {
+    public CustomerAccountOutputDto getCustomerByCustomerName(String customerName) {
+        Optional<CustomerAccount> account = cARepos.findAccountByCustomerName(customerName);
+        if (account.isEmpty()) {
             throw new RecordNotFoundException("cannot find customer please enter a new id ");
         } else {
             CustomerAccount a = account.get();
@@ -63,8 +63,8 @@ public class CustomerAccountService {
 
     }
 
-    public CustomerAccountOutputDto.CustomerFinanceOutputDto getBillingAddressById(long id) {
-        Optional<CustomerAccount> accountOptional = cARepos.findById(id);
+    public CustomerAccountOutputDto.CustomerFinanceOutputDto getBillingAddressByCustomerName(String customerName) {
+        Optional<CustomerAccount> accountOptional = cARepos.findAllByCustomerName(customerName);
         if (!accountOptional.isPresent()) {
             throw new RecordNotFoundException("cannot find the billing address so please enter a anther id");
         } else {
@@ -72,38 +72,26 @@ public class CustomerAccountService {
             return accountToDTo3(a);
         }
     }
+    public CustomerAccountOutputDto getAccountByLicensePlate(String licensePlate) {
+        Optional<Car> carOptional = carRepos.findByLicensePlate(licensePlate);
+        if (carOptional.isEmpty()) {
+            throw new AccountNotFoundException("account", "licensePlate" , licensePlate);
 
-    public Collection<CarOutputDto> getCarByCustomerName(String customerName) {
-        Collection<CarOutputDto> dtoCollection = new HashSet<>();
-        Optional<CustomerAccount> account = cARepos.findAllByCustomerName(customerName);
-        for (CustomerAccount:
-             account) {
-            Car car = car.get();
-            CarOutputDto dto = new CarOutputDto();
-
-            dto.setId(car.getId());
-            dto.setBrand(car.getBrand());
-            dto.setModel(car.getModel());
-            dto.setYearOfBuild(car.getYearOfBuild());
-            dto.setColor(car.getColor());
-            dto.setLicensePlate(car.getLicensePlate());
-            dto.setMileage(car.getMileage());
-            dto.setEngineType(car.getEngineType());
-            dto.setBody(car.getBody());
-            dto.setTransmission(car.getTransmission());
-            dto.setFuel(car.getFuel());
-
-            dtoCollection.add(dto);
-
+        } else {
+            Car car = carOptional.get();
+            CustomerAccount account = car.getAccount();
+            return accountToDTo1(account);
         }
-        return dtoCollection;
-    }
+        }
 
 
-    public CustomerAccountDto.CustomerNameDto updateCustomerName(long id, String firstName, String LastName) {
+
+
+
+    public CustomerAccountDto.CustomerNameDto updateCustomerNameById(long id, String firstName, String LastName) {
         Optional<CustomerAccount> accountOptional = cARepos.findById(id);
 
-        if (!accountOptional.isPresent()) {
+        if (accountOptional.isEmpty()) {
             throw new RecordNotFoundException("Can not find " + firstName + LastName + "so please enter a anther id ");
         } else {
             CustomerAccount name = accountOptional.get();
@@ -116,8 +104,8 @@ public class CustomerAccountService {
 
     }
 
-    public CustomerAccountDto.CustomerFinanceDto updateFinance(long id, String billingAdress, String bankAccountNumber) {
-        Optional<CustomerAccount> accountOptional = cARepos.findById(id);
+    public CustomerAccountDto.CustomerFinanceDto updateFinance(String customerName, String billingAdress, String bankAccountNumber) {
+        Optional<CustomerAccount> accountOptional = cARepos.findAccountByCustomerName(customerName);
         if (accountOptional.isEmpty()) {
             throw new RecordNotFoundException("cannot find the files, please give me anther id");
         } else {
@@ -129,13 +117,13 @@ public class CustomerAccountService {
         }
     }
 
-    public String deleteCustomerById(long id) {
-        if (!cARepos.existsById(id)) {
-            throw new CarNotFoundException("Car with id:" + id + "is not found");
+    public String deleteCustomerByCustomerName(String customerName) {
+        if (!cARepos.existsById(customerName)) {
+            throw new CarNotFoundException("Car  off customer:" + customerName + "is not found");
         } else {
             long count = cARepos.count();
-            cARepos.deleteById(id);
-            return "You delete" + count + "in the id" + id;
+            cARepos.deleteById(customerName);
+            return "You delete" + count + "in the de name" + customerName;
         }
     }
 
@@ -198,8 +186,6 @@ public class CustomerAccountService {
 
 
 
-    public CustomerAccountOutputDto getAccountByLicensePlate(String licensePlate) {
-    }
 
 }
 

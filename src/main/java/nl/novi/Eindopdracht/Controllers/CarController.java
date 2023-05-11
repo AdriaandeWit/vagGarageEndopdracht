@@ -2,6 +2,7 @@ package nl.novi.Eindopdracht.Controllers;
 
 
 import lombok.AllArgsConstructor;
+import nl.novi.Eindopdracht.Models.Data.EngineType;
 import nl.novi.Eindopdracht.Service.CarService;
 import nl.novi.Eindopdracht.Service.CustomerAccountService;
 import nl.novi.Eindopdracht.dto.input.CarDto;
@@ -23,10 +24,7 @@ public class CarController {
     private final CustomerAccountService cAService;
 
 
-
-
-
-    @PostMapping
+    @PostMapping("create/car")
     public ResponseEntity<Object> createCar(@RequestBody CarDto carDto){
         Long id = carService.createCar(carDto);
         carDto.id = id;
@@ -37,19 +35,19 @@ public class CarController {
         return ResponseEntity.created(uri).body(carDto);
     }
 
-    @GetMapping("find/all")
+    @GetMapping("find/all-cars")
     public ResponseEntity<List<CarOutputDto>> getAllCars(){
         List<CarOutputDto> carOutputDto = carService.getAllCars();
         return ResponseEntity.ok(carOutputDto);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/find/car")
     public ResponseEntity<CarOutputDto > getCarById(@RequestParam String licensePlate ){
-        CarOutputDto carOutputDto = carService.getCarByCarId(licensePlate);
+        CarOutputDto carOutputDto = carService.getCarByCarLicensePlate(licensePlate);
         return ResponseEntity.ok(carOutputDto);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/find/owner")
     public ResponseEntity<CustomerAccountOutputDto> getAccountByLicensePlate(@RequestParam String licensePlate){
         CustomerAccountOutputDto account = cAService.getAccountByLicensePlate(licensePlate);
         return ResponseEntity.ok(account);
@@ -63,7 +61,7 @@ public class CarController {
     }
 
     @PutMapping("/update/engineType")
-    public ResponseEntity<CarDto> updateEngineType(@RequestParam String licensePlate, @RequestParam String engineType){
+    public ResponseEntity<CarDto> updateEngineType(@RequestParam String licensePlate, @RequestParam EngineType engineType){
         CarDto carDto = carService.updateEngineType(licensePlate,engineType);
         return ResponseEntity.ok(carDto);
 

@@ -1,10 +1,12 @@
 package nl.novi.Eindopdracht.Service;
 
 
+import nl.novi.Eindopdracht.Exceptions.AccountNotFoundException;
 import nl.novi.Eindopdracht.Exceptions.CarNotFoundException;
 import nl.novi.Eindopdracht.Exceptions.RecordNotFoundException;
 import nl.novi.Eindopdracht.Models.Data.Car;
 import nl.novi.Eindopdracht.Models.Data.CustomerAccount;
+import nl.novi.Eindopdracht.Models.Data.EngineType;
 import nl.novi.Eindopdracht.Repository.CarRepository;
 import nl.novi.Eindopdracht.Repository.CustomerAccountRepository;
 import nl.novi.Eindopdracht.dto.input.CarDto;
@@ -43,7 +45,7 @@ public List<CarOutputDto> getAllCars() {
         return collection;
         }
 
-public CarOutputDto getCarByCarId(String licensePlate) {
+public CarOutputDto getCarByCarLicensePlate(String licensePlate) {
         Optional<Car> carOptional = carRepos.findByLicensePlate(licensePlate);
         if (carOptional.isEmpty()) {
         throw new RecordNotFoundException("Can find car please enter another id");
@@ -52,32 +54,36 @@ public CarOutputDto getCarByCarId(String licensePlate) {
         return carToDto(c);
         }
         }
+public List<CarOutputDto> getAllCarsByCustomerName(String customerName) {
+                Optional<CustomerAccount> optionalAccount = cARepos.findAccountByCustomerName(customerName);
+                if (optionalAccount.isEmpty()) {
+                        throw new AccountNotFoundException("list of cars", "customerName", customerName);
+                }
 
-// TODO: 10/05/2023 kijk hier na. is nog niet goed!
-/*
-    public CustomerAccountOutputDto getAccountByCarId(long id) {
-        Optional<Car>optionalCar = carRepos.findById(id);
-        if(optionalCar.isEmpty()){
-            throw new RecordNotFoundException("Customer","id",id);
-        }
-        else {
-            CustomerAccount account =optionalaccount.get();
-            return carToDto(account);
+                CustomerAccount account = optionalAccount.get();
+                List<CarOutputDto> carOutputDtos = new ArrayList<>();
+                for (Car car : account.getCars()) {
+                        carOutputDtos.add(carToDto(car));
+                }
+
+                return carOutputDtos;
         }
 
-    }
-*/
+
 public void addAccountToCar(String licensePlate, String customerName) {
-        Optional<Car> optionalCar = carRepos.findByLicensePlate(licensePlate);
-        Optional<CustomerAccount> optionalAccount = cARepos.findAccountByCustomerName(customerName);
+        Optional<Car> optionalCar = Optional.ofNullable(carRepos.findByLicensePlate(licensePlate)
+                .orElseThrow(() -> new CarNotFoundException("Car", "licensePlate", licensePlate)));
 
-        if (optionalCar.isPresent()&&optionalAccount.isPresent()){
+        Optional<CustomerAccount> optionalAccount = Optional.ofNullable(cARepos.findAccountByCustomerName(customerName)
+                .orElseThrow(() -> new AccountNotFoundException("account", "customerName", customerName)));
+
+
                 Car car = optionalCar.get();
                 CustomerAccount account = optionalAccount.get();
 
                 car.setAccount(account);
-                cARepos.save(car);
-        }
+                carRepos.save(car);
+
 
 }
 
@@ -93,7 +99,7 @@ public CarDto updateCarMileage(String licensePlate, Integer mileage) {
         return null;
         }
 
-public CarDto updateEngineType(String licensePlate, String engineType) {
+public CarDto updateEngineType(String licensePlate, EngineType engineType) {
         Optional<Car> optionalCar = carRepos.findByLicensePlate(licensePlate);
         if (optionalCar.isPresent()) {
         Car car = optionalCar.get();
@@ -108,14 +114,16 @@ public CarDto updateEngineType(String licensePlate, String engineType) {
 
 public String deleteCarByLicensePlate(String licensePlate) {
         Optional<Car> optionalCar = carRepos.findByLicensePlate(licensePlate);
-        if (optionalCar.isEmpty()){
-        throw new CarNotFoundException("Car with id:" + licensePlate + "is not found");
+        long count;
+        if (optionalCar.isEmpty()) {
+                throw new CarNotFoundException("Car with id:" + licensePlate + "is not found");
         } else {
-        long count = carRepos.count();
-        carRepos.deleteByLicensePlate(licensePlate);
+                count = carRepos.count();
+                carRepos.deleteByLicensePlate(licensePlate);
+
+        }
         return "You delete" + count + "in the id" + licensePlate;
-        }
-        }
+}
 
 public String deleteAllCars(){
         long count = carRepos.count();

@@ -2,10 +2,7 @@ package nl.novi.Eindopdracht.Models.Data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -19,9 +16,9 @@ import java.util.List;
 @Getter
 @Setter
 public class CustomerAccount{
-@GeneratedValue
+ @GeneratedValue
     private Long id;
-@Id         // TODO: 08/05/2023 vraag aan mark of je een een string met een long gekoppeld kan worden.
+    @Id
     private String customerName;
     private String firstName;
     private String lastName;
@@ -34,5 +31,14 @@ public class CustomerAccount{
     @JsonIgnore
     List<Car> cars;
 
-
+    public CustomerAccount(Long id, String customerName, String firstName, String lastName, String address, String phoneNumber, String billingAddress, String bankAccountNumber) {
+        this.id = id;
+        this.customerName = customerName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.billingAddress = billingAddress;
+        this.bankAccountNumber = bankAccountNumber;
+    }
 }
