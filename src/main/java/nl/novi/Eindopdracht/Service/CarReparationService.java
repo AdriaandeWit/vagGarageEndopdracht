@@ -84,7 +84,7 @@ public class CarReparationService {
         if (repairRepos.existsById(id)){
             long count = repairRepos.count();
             repairRepos.deleteById(id);
-            return"You delete "+ count +" in the id "+ id;
+            return"You delete "+ count +" in the carId "+ id;
         }else{
             throw new RecordNotFoundException("repair","id",id);
         }

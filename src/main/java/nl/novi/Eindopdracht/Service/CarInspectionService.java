@@ -33,7 +33,7 @@ public class CarInspectionService {
     public CarInspectionOutputDto getInspectionByID(long id) {
         Optional<CarInspection> inspection = carInspectionRepos.findById(id);
         if (!inspection.isPresent()) {
-            throw  new RecordNotFoundException("Cannot find inspcetion please enter a anther id ");
+            throw  new RecordNotFoundException("Cannot find inspcetion please enter a anther carId ");
         }
         else {
             CarInspection i = inspection.get();
@@ -44,7 +44,7 @@ public class CarInspectionService {
     List<CarInspectionOutputDto> collectionOffId = new ArrayList<>();
     List<CarInspection> list= carInspectionRepos.findAllById(Collections.singleton(id));
         if(list.isEmpty()){
-            throw new RecordNotFoundException("there are no records found on "+ id +"please check a anther id");
+            throw new RecordNotFoundException("there are no records found on "+ id +"please check a anther carId");
          }else {
             for (CarInspection i: list) {
             collectionOffId.add(inspectionToDto(i));
@@ -75,7 +75,7 @@ public class CarInspectionService {
             carInspection.setMileAge(milleAge);
             carInspectionRepos.save(carInspection);
         }else {
-            throw new RecordNotFoundException("Can find "+ id + " please enter a anther id");
+            throw new RecordNotFoundException("Can find "+ id + " please enter a anther carId");
         }
         return null;
     }
@@ -89,7 +89,7 @@ public class CarInspectionService {
             carInspection.setInspectionDate(inspectionDate);
             carInspectionRepos.save(carInspection);
         }else {
-            throw new RecordNotFoundException("cannot find "+ id + "please enter a anther id" );
+            throw new RecordNotFoundException("cannot find "+ id + "please enter a anther carId" );
 
         }
         return null;
@@ -103,7 +103,7 @@ public class CarInspectionService {
             carInspection.setCarIsFine(carIsFine);
             carInspectionRepos.save(carInspection);
         }else {
-            throw new RecordNotFoundException("cannot find "+ id + "please enter a anther id");
+            throw new RecordNotFoundException("cannot find "+ id + "please enter a anther carId");
         }
         return null;
     }
@@ -115,7 +115,7 @@ public class CarInspectionService {
             carInspection.setCarIsFine(hasProblem);
             carInspectionRepos.save(carInspection);
         }else {
-            throw new RecordNotFoundException("cannot find "+ id + "please enter a anther id");
+            throw new RecordNotFoundException("cannot find "+ id + "please enter a anther carId");
         }
         return null;
 
@@ -141,7 +141,7 @@ public class CarInspectionService {
 
     public String deleteInspectionById(Long id) {
         if (!carInspectionRepos.existsById(id)){
-            throw new InspectionNotFoundException("Inspection with id"+ id+ "is not found");
+            throw new InspectionNotFoundException("Inspection with carId"+ id+ "is not found");
         }else{
             Long count = carInspectionRepos.count();
             carInspectionRepos.deleteById(id);

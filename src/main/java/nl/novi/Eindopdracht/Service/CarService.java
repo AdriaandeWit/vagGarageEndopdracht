@@ -6,7 +6,7 @@ import nl.novi.Eindopdracht.Exceptions.CarNotFoundException;
 import nl.novi.Eindopdracht.Exceptions.RecordNotFoundException;
 import nl.novi.Eindopdracht.Models.Data.Car;
 import nl.novi.Eindopdracht.Models.Data.CustomerAccount;
-import nl.novi.Eindopdracht.Models.Data.EngineType;
+import nl.novi.Eindopdracht.Enum.EngineType;
 import nl.novi.Eindopdracht.Repository.CarRepository;
 import nl.novi.Eindopdracht.Repository.CustomerAccountRepository;
 import nl.novi.Eindopdracht.dto.input.CarDto;
@@ -29,11 +29,10 @@ public CarService(CarRepository carRepos, CustomerAccountRepository cARepos) {
         this.cARepos = cARepos;
         }
 
-public Long createCar(CarDto carDto) {
-        Car car = DtoToCar(carDto);
+public void createCar(CarDto carDto) {
+        Car car = transferDtoToCar(carDto);
 
         carRepos.save(car);
-        return car.getId();
         }
 
 public List<CarOutputDto> getAllCars() {
@@ -48,7 +47,7 @@ public List<CarOutputDto> getAllCars() {
 public CarOutputDto getCarByCarLicensePlate(String licensePlate) {
         Optional<Car> carOptional = carRepos.findByLicensePlate(licensePlate);
         if (carOptional.isEmpty()) {
-        throw new RecordNotFoundException("Can find car please enter another id");
+        throw new RecordNotFoundException("Can find car please enter another carId");
         } else {
         Car c = carOptional.get();
         return carToDto(c);
@@ -87,28 +86,31 @@ public void addAccountToCar(String licensePlate, String customerName) {
 
 }
 
-public CarDto updateCarMileage(String licensePlate, Integer mileage) {
+public CarOutputDto updateCarMileage(String licensePlate, Integer mileage) {
         Optional<Car> optionalCar = carRepos.findByLicensePlate(licensePlate);
         if (optionalCar.isPresent()) {
         Car car = optionalCar.get();
-        car.setMileage(mileage);
-        carRepos.save(car);
+        car.setMileAge(mileage);
+        Car car1 = carRepos.save(car);
+
+        return carToDto(car1);
         } else {
         throw new RecordNotFoundException("Can find " + optionalCar + " please enter a anther onwername");
         }
-        return null;
+
         }
 
-public CarDto updateEngineType(String licensePlate, EngineType engineType) {
+public CarOutputDto updateEngineType(String licensePlate, EngineType engineType) {
         Optional<Car> optionalCar = carRepos.findByLicensePlate(licensePlate);
         if (optionalCar.isPresent()) {
         Car car = optionalCar.get();
         car.setEngineType(engineType);
-        carRepos.save(car);
+        Car car1 = carRepos.save(car);
+        return carToDto(car1);
         } else {
         throw new RecordNotFoundException("Can find " + optionalCar + " please enter a anther onwername");
         }
-        return null;
+
         }
 
 
@@ -116,13 +118,13 @@ public String deleteCarByLicensePlate(String licensePlate) {
         Optional<Car> optionalCar = carRepos.findByLicensePlate(licensePlate);
         long count;
         if (optionalCar.isEmpty()) {
-                throw new CarNotFoundException("Car with id:" + licensePlate + "is not found");
+                throw new CarNotFoundException("Car with carId:" + licensePlate + "is not found");
         } else {
                 count = carRepos.count();
                 carRepos.deleteByLicensePlate(licensePlate);
 
         }
-        return "You delete" + count + "in the id" + licensePlate;
+        return "You delete" + count + "in the carId" + licensePlate;
 }
 
 public String deleteAllCars(){
@@ -138,13 +140,13 @@ public String deleteAllCars(){
 public CarOutputDto carToDto(Car car) {
         CarOutputDto dto = new CarOutputDto();
 
-        dto.id = car.getId();
+
         dto.brand = car.getBrand();
         dto.model = car.getModel();
         dto.yearOfBuild = car.getYearOfBuild();
         dto.color = car.getColor();
         dto.licensePlate =car.getLicensePlate();
-        dto.mileage = car.getMileage();
+        dto.mileAge = car.getMileAge();
         dto.engineType = car.getEngineType();
         dto.body = car.getBody();
         dto.transmission = car.getTransmission();
@@ -154,7 +156,7 @@ public CarOutputDto carToDto(Car car) {
         return dto;
         }
 
-public Car DtoToCar(CarDto carDto){
+public Car transferDtoToCar(CarDto carDto){
         Car car = new Car();
 
         car.setBrand(carDto.brand);
@@ -162,7 +164,7 @@ public Car DtoToCar(CarDto carDto){
         car.setYearOfBuild(carDto.yearOfBuild);
         car.setColor(carDto.color);
         car.setLicensePlate(carDto.licensePlate);
-        car.setMileage(carDto.mileAge);
+        car.setMileAge(carDto.mileAge);
         car.setEngineType(carDto.engineType);
         car.setBody(carDto.body);
         car.setTransmission(carDto.transmission);

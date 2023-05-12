@@ -1,4 +1,4 @@
-package nl.novi.Eindopdracht.Models;
+package nl.novi.Eindopdracht.Enum;
 
 public enum Colors {
     BLACK,

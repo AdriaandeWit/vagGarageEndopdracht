@@ -1,14 +1,17 @@
 package nl.novi.Eindopdracht.dto.input;
 
-import nl.novi.Eindopdracht.Models.Colors;
+import lombok.Getter;
+import lombok.Setter;
+import nl.novi.Eindopdracht.Enum.*;
 import nl.novi.Eindopdracht.Models.Data.*;
 
 import java.time.LocalDate;
 
-
+@Getter
+@Setter
 public class CarDto {
 
-    public Long id;
+
     public CarBrand brand;
     public CarModel model;
     public LocalDate yearOfBuild;

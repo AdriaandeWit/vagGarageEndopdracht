@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nl.novi.Eindopdracht.Models.Colors;
+import nl.novi.Eindopdracht.Enum.*;
 
 import java.time.LocalDate;
 
@@ -17,15 +17,15 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "car")
 public class Car {
-    @GeneratedValue
-    private Long id;
+
+
     private CarBrand brand;
     private CarModel model;
     private LocalDate yearOfBuild;
     private Colors color;
     @Id
     private String licensePlate;
-    private Integer mileage;
+    private Integer mileAge;
     private EngineType engineType;
     private Body body;
     private Transmission transmission;

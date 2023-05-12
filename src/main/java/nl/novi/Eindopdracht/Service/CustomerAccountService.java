@@ -45,7 +45,7 @@ public class CustomerAccountService {
     public CustomerAccountOutputDto getCustomerByCustomerName(String customerName) {
         Optional<CustomerAccount> account = cARepos.findAccountByCustomerName(customerName);
         if (account.isEmpty()) {
-            throw new RecordNotFoundException("cannot find customer please enter a new id ");
+            throw new RecordNotFoundException("cannot find customer please enter a new carId ");
         } else {
             CustomerAccount a = account.get();
             return accountToDTo1(a);
@@ -66,7 +66,7 @@ public class CustomerAccountService {
     public CustomerAccountOutputDto.CustomerFinanceOutputDto getBillingAddressByCustomerName(String customerName) {
         Optional<CustomerAccount> accountOptional = cARepos.findAllByCustomerName(customerName);
         if (!accountOptional.isPresent()) {
-            throw new RecordNotFoundException("cannot find the billing address so please enter a anther id");
+            throw new RecordNotFoundException("cannot find the billing address so please enter a anther carId");
         } else {
             CustomerAccount a = accountOptional.get();
             return accountToDTo3(a);
@@ -92,7 +92,7 @@ public class CustomerAccountService {
         Optional<CustomerAccount> accountOptional = cARepos.findById(id);
 
         if (accountOptional.isEmpty()) {
-            throw new RecordNotFoundException("Can not find " + firstName + LastName + "so please enter a anther id ");
+            throw new RecordNotFoundException("Can not find " + firstName + LastName + "so please enter a anther carId ");
         } else {
             CustomerAccount name = accountOptional.get();
             name.setFirstName(firstName);
@@ -107,7 +107,7 @@ public class CustomerAccountService {
     public CustomerAccountDto.CustomerFinanceDto updateFinance(String customerName, String billingAdress, String bankAccountNumber) {
         Optional<CustomerAccount> accountOptional = cARepos.findAccountByCustomerName(customerName);
         if (accountOptional.isEmpty()) {
-            throw new RecordNotFoundException("cannot find the files, please give me anther id");
+            throw new RecordNotFoundException("cannot find the files, please give me anther carId");
         } else {
             CustomerAccount a = accountOptional.get();
             a.setBankAccountNumber(bankAccountNumber);

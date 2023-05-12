@@ -2,7 +2,7 @@ package nl.novi.Eindopdracht.Controllers;
 
 
 import lombok.AllArgsConstructor;
-import nl.novi.Eindopdracht.Models.Data.EngineType;
+import nl.novi.Eindopdracht.Enum.EngineType;
 import nl.novi.Eindopdracht.Service.CarService;
 import nl.novi.Eindopdracht.Service.CustomerAccountService;
 import nl.novi.Eindopdracht.dto.input.CarDto;
@@ -26,11 +26,10 @@ public class CarController {
 
     @PostMapping("create/car")
     public ResponseEntity<Object> createCar(@RequestBody CarDto carDto){
-        Long id = carService.createCar(carDto);
-        carDto.id = id;
+        carService.createCar(carDto);
 
         URI uri = URI.create(ServletUriComponentsBuilder.
-                fromCurrentRequest().path("/"+ id).toUriString());
+                fromCurrentRequest().path("/"+ carDto.licensePlate).toUriString());
 
         return ResponseEntity.created(uri).body(carDto);
     }
@@ -54,15 +53,15 @@ public class CarController {
     }
 
     @PutMapping("/update/mileage")
-    public ResponseEntity<CarDto> updateCarMileage(@RequestParam  String licensePlate ,@RequestParam Integer mileage   ){
+    public ResponseEntity<CarOutputDto> updateCarMileage(@RequestParam  String licensePlate ,@RequestParam Integer mileage   ){
 
-        CarDto carDto =  carService.updateCarMileage(licensePlate ,mileage);
+        CarOutputDto carDto =  carService.updateCarMileage(licensePlate ,mileage);
         return ResponseEntity.ok(carDto);
     }
 
     @PutMapping("/update/engineType")
-    public ResponseEntity<CarDto> updateEngineType(@RequestParam String licensePlate, @RequestParam EngineType engineType){
-        CarDto carDto = carService.updateEngineType(licensePlate,engineType);
+    public ResponseEntity<CarOutputDto> updateEngineType(@RequestParam String licensePlate, @RequestParam EngineType engineType){
+        CarOutputDto carDto = carService.updateEngineType(licensePlate,engineType);
         return ResponseEntity.ok(carDto);
 
     }
