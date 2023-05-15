@@ -8,7 +8,6 @@ public class CarInspectionOutputDto {
     public Long id;
     public int milleAge;
     public String licensePlate;
-    public String costumerNumber;
     public LocalDate inspectionDate;
     public boolean carIsCorrect;
     public String carIsFine;

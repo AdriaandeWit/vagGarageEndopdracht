@@ -2,7 +2,7 @@ package nl.novi.Eindopdracht.Controllers;
 
 
 import lombok.AllArgsConstructor;
-import nl.novi.Eindopdracht.Enum.EngineType;
+import nl.novi.Eindopdracht.Models.Data.Enum.EngineType;
 import nl.novi.Eindopdracht.Service.CarService;
 import nl.novi.Eindopdracht.Service.CustomerAccountService;
 import nl.novi.Eindopdracht.dto.input.CarDto;

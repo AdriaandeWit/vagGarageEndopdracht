@@ -4,7 +4,11 @@ package nl.novi.Eindopdracht.Models.Data.CarParts;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
 import lombok.*;
+import nl.novi.Eindopdracht.Models.Data.CarRepair;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,4 +28,8 @@ public class CarParts {
     private Double price;
     @NonNull
     private Integer amountOfParts;
+
+    @OneToMany
+    private List<CarRepair> carRepair;
+
 }

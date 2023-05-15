@@ -1,4 +1,4 @@
-package nl.novi.Eindopdracht.Enum;
+package nl.novi.Eindopdracht.Models.Data.Enum;
 
 public enum Body {
     SUV,

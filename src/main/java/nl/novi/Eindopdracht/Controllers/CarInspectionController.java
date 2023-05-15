@@ -38,7 +38,7 @@ public class CarInspectionController {
     }
     @GetMapping("/find/all/{id}")
     public ResponseEntity<List<CarInspectionOutputDto>> getAllInspectionsById(@PathVariable long id){
-        List<CarInspectionOutputDto> carInspectionOutputDtos = carInspectionService.getAllInspectionsById(id);
+        List<CarInspectionOutputDto> carInspectionOutputDtos = carInspectionService.getAllInspections();
         return ResponseEntity.ok(carInspectionOutputDtos);
     }
     @PutMapping("/update/mileage/{id}")

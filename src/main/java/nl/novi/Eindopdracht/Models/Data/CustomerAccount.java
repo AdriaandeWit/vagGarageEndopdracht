@@ -31,6 +31,7 @@ public class CustomerAccount{
     @JsonIgnore
     List<Car> cars;
 
+
     public CustomerAccount(Long id, String customerName, String firstName, String lastName, String address, String phoneNumber, String billingAddress, String bankAccountNumber) {
         this.id = id;
         this.customerName = customerName;

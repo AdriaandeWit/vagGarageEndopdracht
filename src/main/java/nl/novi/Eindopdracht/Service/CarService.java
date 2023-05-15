@@ -6,7 +6,7 @@ import nl.novi.Eindopdracht.Exceptions.CarNotFoundException;
 import nl.novi.Eindopdracht.Exceptions.RecordNotFoundException;
 import nl.novi.Eindopdracht.Models.Data.Car;
 import nl.novi.Eindopdracht.Models.Data.CustomerAccount;
-import nl.novi.Eindopdracht.Enum.EngineType;
+import nl.novi.Eindopdracht.Models.Data.Enum.EngineType;
 import nl.novi.Eindopdracht.Repository.CarRepository;
 import nl.novi.Eindopdracht.Repository.CustomerAccountRepository;
 import nl.novi.Eindopdracht.dto.input.CarDto;
@@ -21,7 +21,7 @@ public class CarService {
 
     private final CarRepository carRepos;
 
-private final CustomerAccountRepository cARepos;
+    private final CustomerAccountRepository cARepos;
 
 
 public CarService(CarRepository carRepos, CustomerAccountRepository cARepos) {

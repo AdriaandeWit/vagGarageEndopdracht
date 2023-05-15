@@ -2,8 +2,8 @@ package nl.novi.Eindopdracht.dto.input;
 
 import lombok.Getter;
 import lombok.Setter;
-import nl.novi.Eindopdracht.Enum.*;
 import nl.novi.Eindopdracht.Models.Data.*;
+import nl.novi.Eindopdracht.Models.Data.Enum.*;
 
 import java.time.LocalDate;
 

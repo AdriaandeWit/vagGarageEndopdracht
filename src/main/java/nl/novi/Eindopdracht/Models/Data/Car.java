@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import nl.novi.Eindopdracht.Enum.*;
+import nl.novi.Eindopdracht.Models.Data.Enum.*;
+
 
 import java.time.LocalDate;
 
@@ -31,11 +32,12 @@ public class Car {
     private Transmission transmission;
     private Fuel fuel;
 
-  @ManyToOne
+    @ManyToOne
     private CustomerAccount account;
 
-    public Car(String licensePlate, Integer mileage) {
-    }
+    @OneToOne(mappedBy = "carInspection")
+    CarInspection carInspection;
+
 }
 
 

@@ -40,16 +40,16 @@ public class CarInspectionService {
             return inspectionToDto(i);
         }
     }
-    public List<CarInspectionOutputDto> getAllInspectionsById(long id){
-    List<CarInspectionOutputDto> collectionOffId = new ArrayList<>();
-    List<CarInspection> list= carInspectionRepos.findAllById(Collections.singleton(id));
+    public List<CarInspectionOutputDto> getAllInspections(){
+    List<CarInspectionOutputDto> collectionOff = new ArrayList<>();
+    List<CarInspection> list= carInspectionRepos.findAll();
         if(list.isEmpty()){
-            throw new RecordNotFoundException("there are no records found on "+ id +"please check a anther carId");
+            throw new RecordNotFoundException("there are no records found on please check a anther carId");
          }else {
             for (CarInspection i: list) {
-            collectionOffId.add(inspectionToDto(i));
+            collectionOff.add(inspectionToDto(i));
         }
-        return collectionOffId;
+        return collectionOff;
         }
     }
     public CarInspection DtoToCarInspection (CarInspectionDto inspectionDto){
@@ -57,12 +57,12 @@ public class CarInspectionService {
 
         inspection.setMileAge(inspectionDto.milleAge);
         inspection.setLicensePlate(inspectionDto.licensePlate);
-        inspection.setCostumerNumber(inspectionDto.costumerNumber);
         inspection.setInspectionDate(inspectionDto.inspectionDate);
         inspection.setCarIsIncorrect(inspectionDto.carIsCorrect);
         inspection.setCarIsFine(inspectionDto.carIsFine);
         inspection.setCarIsIncorrect(inspectionDto.carIsIncorrect);
         inspection.setHasProblem(inspectionDto.hasProblem);
+
 
         return  inspection;
 
@@ -98,24 +98,26 @@ public class CarInspectionService {
 
     public CarInspectionDto updateCarIsFine(Long id, String carIsFine) {
         Optional<CarInspection> optionalCarInspection = carInspectionRepos.findById(id);
-        if(optionalCarInspection.isPresent()){
+        if(optionalCarInspection.isEmpty()){
+        throw new RecordNotFoundException("cannot find "+ id + "please enter a anther carId");
+
+        }else {
             CarInspection carInspection = optionalCarInspection.get();
             carInspection.setCarIsFine(carIsFine);
             carInspectionRepos.save(carInspection);
-        }else {
-            throw new RecordNotFoundException("cannot find "+ id + "please enter a anther carId");
         }
         return null;
     }
 
     public CarInspectionDto updateHasProblem(Long id, String hasProblem) {
         Optional<CarInspection> optionalCarInspection = carInspectionRepos.findById(id);
-        if(optionalCarInspection.isPresent()){
-            CarInspection carInspection = optionalCarInspection.get();
-            carInspection.setCarIsFine(hasProblem);
-            carInspectionRepos.save(carInspection);
-        }else {
+        if(optionalCarInspection.isEmpty()){
             throw new RecordNotFoundException("cannot find "+ id + "please enter a anther carId");
+
+        }else {
+            CarInspection carInspection = optionalCarInspection.get();
+            carInspection.setHasProblem(hasProblem);
+            carInspectionRepos.save(carInspection);
         }
         return null;
 
@@ -169,7 +171,6 @@ public class CarInspectionService {
         dto.id= carInspection.getId();
         dto.milleAge = carInspection.getMileAge();
         dto.licensePlate = carInspection.getLicensePlate();
-        dto.costumerNumber=carInspection.getCostumerNumber();
         dto.inspectionDate=carInspection.getInspectionDate();
         dto.carIsCorrect=carInspection.isCarIsCorrect();
         dto.carIsFine=carInspection.getCarIsFine();

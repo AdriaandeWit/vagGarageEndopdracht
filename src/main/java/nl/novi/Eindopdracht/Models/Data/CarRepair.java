@@ -2,10 +2,12 @@ package nl.novi.Eindopdracht.Models.Data;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import nl.novi.Eindopdracht.Models.Data.CarParts.CarParts;
 
 import java.time.LocalDate;
 
@@ -25,6 +27,8 @@ private Double partCost;
 private Double laborCost;
 private Double totalCost;
 
+@OneToMany
+private CarParts carParts;
 
 
 }
