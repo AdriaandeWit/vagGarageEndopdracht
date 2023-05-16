@@ -26,7 +26,6 @@ public class CarInspection {
     private LocalDate inspectionDate;
     private boolean carIsCorrect;
     private String carIsFine;
-    private boolean carIsIncorrect;
     private String hasProblem;
 
     @OneToOne(mappedBy ="Car")
