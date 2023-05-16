@@ -26,8 +26,8 @@ public class CarInspectionService {
 
     public Long createInspection(CarInspectionDto carInspectionDto) {
         CarInspection inspection = DtoToCarInspection(carInspectionDto);
-
         carInspectionRepos.save(inspection);
+        updateCarStatus(inspection.getId());
         return inspection.getId();
     }
     public CarInspectionOutputDto getInspectionByID(long id) {
@@ -52,21 +52,7 @@ public class CarInspectionService {
         return collectionOff;
         }
     }
-    public CarInspection DtoToCarInspection (CarInspectionDto inspectionDto){
-        CarInspection inspection = new CarInspection();
 
-        inspection.setMileAge(inspectionDto.milleAge);
-        inspection.setLicensePlate(inspectionDto.licensePlate);
-        inspection.setInspectionDate(inspectionDto.inspectionDate);
-        inspection.setCarIsIncorrect(inspectionDto.carIsCorrect);
-        inspection.setCarIsFine(inspectionDto.carIsFine);
-        inspection.setCarIsIncorrect(inspectionDto.carIsIncorrect);
-        inspection.setHasProblem(inspectionDto.hasProblem);
-
-
-        return  inspection;
-
-    }
 
     public CarInspectionDto updateMileAge(Long id, int milleAge) {
         Optional<CarInspection> optionalcarInspection = carInspectionRepos.findById(id);
@@ -123,18 +109,26 @@ public class CarInspectionService {
 
     }
 
-    public boolean updateStatusCar(Long id, boolean carIsCorrect,boolean carIsIncorrect) {
+    private void updateCarStatus(Long Id) {
+        Optional<CarInspection> optionalCarInspection = carInspectionRepos.findById(Id);
+        if (optionalCarInspection.isPresent()) {
+            CarInspection latestInspection = optionalCarInspection.get();
+            boolean carIsCorrect = latestInspection.isCarIsCorrect();
+            boolean carIsIncorrect = latestInspection.isCarIsIncorrect();
+            updateStatusCar(Id, carIsCorrect, carIsIncorrect); // hier wordt de status van de auto bijgewerkt
+        }
+    }
+
+
+
+    public boolean updateStatusCar(Long id, boolean carIsCorrect, boolean carIsIncorrect) {
         Optional<CarInspection> optionalCarInspection = carInspectionRepos.findById(id);
         if (optionalCarInspection.isPresent()) {
             CarInspection carInspection = optionalCarInspection.get();
-            if (carIsCorrect) {
-                carInspection.setCarIsIncorrect(false);
-                carInspection.setCarIsCorrect(true);
-            } else {
-                carInspection.setCarIsCorrect(false);
-                carInspection.setCarIsIncorrect(true);
-            }
+            carInspection.setCarIsCorrect(carIsCorrect);
+            carInspection.setCarIsIncorrect(carIsIncorrect);
             carInspectionRepos.save(carInspection);
+            updateCarStatus(carInspection.getId()); // hier wordt de updateCarStatus-methode opgeroepen met het ID van de auto
             return true;
         } else {
             return false;
@@ -159,10 +153,21 @@ public class CarInspectionService {
     }
 
 
+    public CarInspection DtoToCarInspection (CarInspectionDto inspectionDto){
+        CarInspection inspection = new CarInspection();
+
+        inspection.setMileAge(inspectionDto.milleAge);
+        inspection.setLicensePlate(inspectionDto.licensePlate);
+        inspection.setInspectionDate(inspectionDto.inspectionDate);
+        inspection.setCarIsIncorrect(inspectionDto.carIsCorrect);
+        inspection.setCarIsFine(inspectionDto.carIsFine);
+        inspection.setCarIsIncorrect(inspectionDto.carIsIncorrect);
+        inspection.setHasProblem(inspectionDto.hasProblem);
 
 
+        return  inspection;
 
-
+    }
 
 
     public CarInspectionOutputDto inspectionToDto(CarInspection carInspection){

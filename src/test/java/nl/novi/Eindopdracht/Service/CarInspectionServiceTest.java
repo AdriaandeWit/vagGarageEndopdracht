@@ -305,16 +305,38 @@ class CarInspectionServiceTest {
 
 
     }
+
     @Test
-    void updateStatusCar_InvalidId() {
+     void givenValidId_whenUpdateStatusCar_thenReturnTrueAndCorrectlyUpdatesCarInspection() {
+        // Arrange
+        Long id = 1L;
+        boolean carIsCorrect = true;
+        boolean carIsIncorrect = false;
+        CarInspection carInspection = new CarInspection();
+        carInspection.setId(id);
+        carInspection.setCarIsCorrect(true);
+        carInspection.setCarIsIncorrect(false);
+        Optional<CarInspection> optionalCarInspection = Optional.of(carInspection);
+        when(carInpectionRepos.findById(id)).thenReturn(optionalCarInspection);
+
+        // Act
+        boolean result = updateStatusCar(id, carIsCorrect, carIsIncorrect);
+
+        // Assert
+        //
+        verify(carInpectionRepos, times(1)).findById(id);
+        verify(carInpectionRepos, times(1)).save(carInspection);
+        assertTrue(result);
+        assertTrue(carInspection.isCarIsCorrect());
+        assertFalse(carInspection.isCarIsIncorrect());
 
 
     }
-    @Test
-    void updateStatusCar_ValidId() {
-        Long id = 2L;
 
+    private boolean updateStatusCar(Long id, boolean carIsCorrect, boolean carIsIncorrect) {
+        return carIsCorrect;
     }
+
 
     @Test
     void deleteInspectionById_ValidId() {
