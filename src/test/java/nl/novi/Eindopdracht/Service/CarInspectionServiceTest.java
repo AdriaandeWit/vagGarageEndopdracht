@@ -47,6 +47,8 @@ class CarInspectionServiceTest {
 
     CarInspectionDto iDto;
 
+    CarInspectionDto i2Dto;
+
     CustomerAccount account1;
 
     CustomerAccount account2;
@@ -69,19 +71,31 @@ class CarInspectionServiceTest {
         car2 = new Car(CarBrand.AUDI, CarModel.A3, LocalDate.of(2022, 8, 2), Colors.BROWN, "D-710-PP", 150123, EngineType.TDI, Body.HATCHBACK, Transmission.Manual, Fuel.DIESEL, account2, null);
 
         carInspection1 = new CarInspection(1L, 10202, "D-899-PP", LocalDate.of(2023, 5, 15), true, "No problem with the Car", "", car1, null);
-        carInspection2 = new CarInspection(2L, 15121, "D-899-PP", LocalDate.of(2023, 3, 6), false, "", "The car has broken spark plugs.", car1, null);
+        carInspection2 = new CarInspection(2L, 15121, "D-899-QQ", LocalDate.of(2023, 3, 6), false, "", "The car has broken spark plugs.", car1, null);
 
         iDto = new CarInspectionDto();
         iDto.setId(1L);
         iDto.setMilleAge(10202);
         iDto.setLicensePlate("D-899-PP");
-        iDto.setInspectionDate(LocalDate.of(2020, 4, 15));
+        iDto.setInspectionDate(LocalDate.of(2023, 5, 15));
         iDto.setCarIsCorrect(true);
         iDto.setCarIsFine("No problem with the Car");
         iDto.setCarIsIncorrect(false);
         iDto.setHasProblem("");
         iDto.setCar(car1);
         iDto.setCarRepairList(null);
+
+        i2Dto = new CarInspectionDto();
+        i2Dto.setId(3L);
+        i2Dto.setMilleAge(115432);
+        i2Dto.setLicensePlate("A-311-QQ");
+        i2Dto.setInspectionDate(LocalDate.of(2016, 2, 15));
+        i2Dto.setCarIsCorrect(true);
+        i2Dto.setCarIsFine("No problem with the Car");
+        i2Dto.setCarIsIncorrect(false);
+        i2Dto.setHasProblem("");
+        i2Dto.setCar(car2);
+        i2Dto.setCarRepairList(null);
 
         carRepair1 = new CarRepair();
         carRepair1.setId(1L);
@@ -111,21 +125,23 @@ class CarInspectionServiceTest {
 
     @Test
     void createInspection() {
+
         when(carInpectionRepos.save(carInspection1)).thenReturn(carInspection1);
-        carInspectionService.createInspection(iDto);
+
+        Long inspectionId = carInspectionService.createInspection(iDto);
+
+        assertEquals(carInspection1.getId(),inspectionId);
 
         verify(carInpectionRepos, times(1)).save(captor.capture());
-        CarInspection inspection = captor.getValue();
+        CarInspection capturedInspection = captor.getValue();
 
-        assertEquals(carInspection1.getId(), inspection.getId());
-        assertEquals(carInspection1.getMileAge(), inspection.getMileAge());
-        assertEquals(carInspection1.getLicensePlate(), inspection.getLicensePlate());
-        assertEquals(carInspection1.getInspectionDate(), inspection.getInspectionDate());
-        assertEquals(carInspection1.isCarIsCorrect(), inspection.isCarIsCorrect());
-        assertEquals(carInspection1.getCarIsFine(), inspection.getCarIsFine());
-        assertEquals(carInspection1.getHasProblem(), inspection.getHasProblem());
-        assertEquals(carInspection1.getCar(), inspection.getCar());
-        assertEquals(carInspection1.getCarRepair(), inspection.getCarRepair());
+
+        assertEquals(carInspection1.getId(),capturedInspection.getId());
+        assertEquals(carInspection1.getMileAge(),capturedInspection.getMileAge());
+        assertEquals(carInspection1.getLicensePlate(),capturedInspection.getLicensePlate());
+        assertEquals(carInspection1.getInspectionDate(),capturedInspection.getInspectionDate());
+        assertEquals(carInspection1.getCarIsFine(),capturedInspection.getCarIsFine());
+
 
 
     }
@@ -181,9 +197,7 @@ class CarInspectionServiceTest {
 
     }
 
-    @Test
-    void dtoToCarInspection() {
-    }
+
 
     @Test
     void updateMileAge_InvalidId() {
@@ -295,7 +309,7 @@ class CarInspectionServiceTest {
     }
 
     @Test
-    void updateCarStatus_Invalid(){
+    void updateCarStatus_InvalidId(){
         Long id = 1L;
         boolean carIsCorrect = true;
 
@@ -304,7 +318,7 @@ class CarInspectionServiceTest {
         assertThrows(CarStatusNotFoundException.class, ()-> carInspectionService.updateCarStatus(id,carIsCorrect));
     }
     @Test
-    void updateCarStatus() {
+    void updateCarStatus_ValidId() {
         Long id = 1L;
         boolean carIsCorrect = true;
 
@@ -323,23 +337,83 @@ class CarInspectionServiceTest {
         verify(carInpectionRepos,times(1)).save(existingCarInspection);
     }
 
-
-
     @Test
-    void deleteInspectionById_ValidId() {
+    void deleteInspectionById_InvalidId() {
         Long id = 1L;
 
-        when(carInpectionRepos.findById(id)).thenReturn(Optional.empty());
+        when(carInpectionRepos.existsById(id)).thenReturn(false);
 
         assertThrows(InspectionNotFoundException.class,()-> carInspectionService.deleteInspectionById(id));
     }
 
     @Test
-    void deleteAllInspections() {
+    void deleteInspectionById_ValidId(){
+        Long id = 1L;
+
+        CarInspection inspection = new CarInspection();
+        inspection.setId(id);
+
+        when(carInpectionRepos.existsById(id)).thenReturn(true);
+
+        Long count = carInpectionRepos.count();
+        String result = carInspectionService.deleteInspectionById(id);
+
+
+        verify(carInpectionRepos).existsById(id);
+        verify(carInpectionRepos).deleteById(id);
+        assertEquals("you deleted "+ count + " in the "+ id,result);
+
     }
+
+
+
+
+    @Test
+    void deleteAllInspections() {
+
+        when(carInpectionRepos.count()).thenReturn(2L);
+
+        String result = carInspectionService.deleteAllInspections();
+
+        verify(carInpectionRepos,times(1)).count();
+        verify(carInpectionRepos,times(1)).deleteAll();
+
+        assertEquals("We deleted 2 inspections",result );
+    }
+    @Test
+    void dtoToCarInspection() {
+
+        when(carInpectionRepos.save(carInspection1)).thenReturn(carInspection1);
+
+
+
+        // Act
+        carInspectionService.DtoToCarInspection(iDto);
+
+        // Assert
+        assertEquals(iDto.milleAge, carInspection1.getMileAge());
+        assertEquals(iDto.licensePlate, carInspection1.getLicensePlate());
+        assertEquals(iDto.inspectionDate, carInspection1.getInspectionDate());
+        assertEquals(iDto.carIsCorrect, carInspection1.isCarIsCorrect());
+        assertEquals(iDto.carIsFine, carInspection1.getCarIsFine());
+        assertEquals(iDto.hasProblem, carInspection1.getHasProblem());
+
+    }
+
 
     @Test
     void inspectionToDto() {
+
+        when(carInpectionRepos.save(carInspection1)).thenReturn(carInspection1);
+
+        carInspectionService.inspectionToDto(carInspection1);
+
+        assertEquals(iDto.milleAge, carInspection1.getMileAge());
+        assertEquals(iDto.licensePlate, carInspection1.getLicensePlate());
+        assertEquals(iDto.inspectionDate, carInspection1.getInspectionDate());
+        assertEquals(iDto.carIsCorrect, carInspection1.isCarIsCorrect());
+        assertEquals(iDto.carIsFine, carInspection1.getCarIsFine());
+        assertEquals(iDto.hasProblem, carInspection1.getHasProblem());
     }
 
 

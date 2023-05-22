@@ -32,7 +32,7 @@ public class CarInspectionService {
 
     public CarInspectionOutputDto getInspectionByID(long id) {
         Optional<CarInspection> inspection = carInspectionRepos.findById(id);
-        if (!inspection.isPresent()) {
+        if (inspection.isEmpty()) {
             throw new RecordNotFoundException("Cannot find inspcetion please enter a anther carId ");
         } else {
             CarInspection i = inspection.get();
@@ -98,7 +98,6 @@ public class CarInspectionService {
         Optional<CarInspection> optionalCarInspection = carInspectionRepos.findById(id);
         if (optionalCarInspection.isEmpty()) {
             throw new RecordNotFoundException("cannot find " + id + "please enter a anther carId");
-
         } else {
             CarInspection carInspection = optionalCarInspection.get();
             carInspection.setHasProblem(hasProblem);
@@ -112,7 +111,6 @@ public class CarInspectionService {
         Optional<CarInspection> optionalCarInspection = carInspectionRepos.findById(id);
         if (optionalCarInspection.isEmpty()) {
             throw new CarStatusNotFoundException("status", "id", "id");
-
         } else {
             CarInspection latestInspection = optionalCarInspection.get();
             latestInspection.setCarIsCorrect(carIsCorrect);
@@ -128,21 +126,17 @@ public class CarInspectionService {
         } else {
             Long count = carInspectionRepos.count();
             carInspectionRepos.deleteById(id);
-            return " you deleted" + count + "in the " + id;
+            return "you deleted "  + count +  " in the " + id;
         }
-
     }
-
     public String deleteAllInspections() {
         Long count = carInspectionRepos.count();
         carInspectionRepos.deleteAll();
-        return "We delted" + count + "inspections";
+        return "We deleted " + count + " inspections";
     }
-
-
     public CarInspection DtoToCarInspection(CarInspectionDto inspectionDto) {
         CarInspection inspection = new CarInspection();
-
+        inspection.setId(inspectionDto.id);
         inspection.setMileAge(inspectionDto.milleAge);
         inspection.setLicensePlate(inspectionDto.licensePlate);
         inspection.setInspectionDate(inspectionDto.inspectionDate);

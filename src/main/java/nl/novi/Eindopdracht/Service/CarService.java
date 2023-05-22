@@ -31,7 +31,6 @@ public CarService(CarRepository carRepos, CustomerAccountRepository cARepos) {
 
 public void createCar(CarDto carDto) {
         Car car = transferDtoToCar(carDto);
-
         carRepos.save(car);
         }
 
