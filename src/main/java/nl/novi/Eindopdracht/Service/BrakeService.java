@@ -96,7 +96,7 @@ return
 //}
 
     public String deleteBrakeById(Long id) {
-        Brakes existingBrake = brakeRepos.findById(id).orElseThrow(
+        brakeRepos.findById(id).orElseThrow(
                 () -> new RecordNotFoundException("brake", "id",id)
         );
 
