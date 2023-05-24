@@ -1,10 +1,10 @@
 package nl.novi.Eindopdracht.dto.input.CarPartsDto;
 
-
-
-
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.Getter;
+import lombok.Setter;
+
 @JsonTypeInfo(
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "PartType",
@@ -16,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = TyresDto.class, name = "Tyres"),
         @JsonSubTypes.Type(value = SparkPlugDto.class,name = "SparkPlug")
 })
+@Getter
+@Setter
 public abstract class CarPartsDto {
 
     public Long id;

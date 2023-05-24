@@ -1,7 +1,9 @@
-package nl.novi.Eindopdracht.controllers;
+/*package nl.novi.Eindopdracht.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import nl.novi.Eindopdracht.Controllers.CarController;
 import nl.novi.Eindopdracht.Models.Data.Car;
 import nl.novi.Eindopdracht.Models.Data.CustomerAccount;
@@ -21,6 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -213,9 +216,18 @@ public class CarControllerTest {
 
     public static String asJsonString(final Object obj) {
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            SimpleModule module = new SimpleModule();
+            module.addSerializer(LocalDate.class,new LocalDateSerializer(DateTimeFormatter.ISO_DATE));
+            objectMapper.registerModule(module);
             return new ObjectMapper().writeValueAsString(obj);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public static String transfer
+
+
 }
+*/
