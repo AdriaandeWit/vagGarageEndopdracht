@@ -29,9 +29,10 @@ public class CarService {
         this.cARepos = cARepos;
     }
 
-    public void createCar(CarDto carDto) {
+    public Car createCar(CarDto carDto) {
         Car car = transferDtoToCar(carDto);
         carRepos.save(car);
+        return car;
     }
     public List<CarOutputDto> getAllCars() {
         List<CarOutputDto> collection = new ArrayList<>();

@@ -25,7 +25,7 @@ public class CustomerAccountController {
 
 
     @PostMapping()
-    public ResponseEntity<Object> createCustomer(@RequestBody CustomerAccountDto.CustomerAccountAllDto cADto){
+    public ResponseEntity<Object> createCustomer(@RequestBody CustomerAccountDto cADto){
         Long id = cAService.createCostumer(cADto);
         cADto.id = id;
 
@@ -66,15 +66,15 @@ public class CustomerAccountController {
     }
 
     @PutMapping("/update/name/{id}")
-    public ResponseEntity<CustomerAccountDto.CustomerNameDto> updateCustomerNameById(@PathVariable long id, @RequestParam String customerFirstname, @RequestParam String customerLastName){
+    public ResponseEntity<CustomerAccountDto> updateCustomerNameById(@PathVariable long id, @RequestParam String customerFirstname, @RequestParam String customerLastName){
 
-        CustomerAccountDto.CustomerNameDto customer =  cAService.updateCustomerNameById(id,customerFirstname,customerLastName);
+        CustomerAccountDto customer =  cAService.updateCustomerNameById(id,customerFirstname,customerLastName);
         return ResponseEntity.ok(customer);
     }
 
     @PutMapping("/update/address")
-    public ResponseEntity<CustomerAccountDto.CustomerFinanceDto> updateFinanceByCustomerName(@RequestParam String customerName, @RequestParam String billingAdress, @RequestParam String bankAccountNumber){
-        CustomerAccountDto.CustomerFinanceDto customer = cAService.updateFinance(customerName,billingAdress,bankAccountNumber);
+    public ResponseEntity<CustomerAccountDto> updateFinanceByCustomerName(@RequestParam String customerName, @RequestParam String billingAdress, @RequestParam String bankAccountNumber){
+        CustomerAccountDto customer = cAService.updateFinance(customerName,billingAdress,bankAccountNumber);
         return ResponseEntity.ok(customer);
 
     }

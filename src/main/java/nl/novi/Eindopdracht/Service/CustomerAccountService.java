@@ -26,7 +26,7 @@ public class CustomerAccountService {
 
 
 
-    public Long createCostumer(CustomerAccountDto.CustomerAccountAllDto cADto) {
+    public Long createCostumer(CustomerAccountDto cADto) {
         CustomerAccount account = DtoToAccount(cADto);
 
         cARepos.save(account);
@@ -88,7 +88,7 @@ public class CustomerAccountService {
 
 
 
-    public CustomerAccountDto.CustomerNameDto updateCustomerNameById(long id, String firstName, String LastName) {
+    public CustomerAccountDto updateCustomerNameById(long id, String firstName, String LastName) {
         Optional<CustomerAccount> accountOptional = cARepos.findById(id);
 
         if (accountOptional.isEmpty()) {
@@ -104,7 +104,7 @@ public class CustomerAccountService {
 
     }
 
-    public CustomerAccountDto.CustomerFinanceDto updateFinance(String customerName, String billingAdress, String bankAccountNumber) {
+    public CustomerAccountDto updateFinance(String customerName, String billingAdress, String bankAccountNumber) {
         Optional<CustomerAccount> accountOptional = cARepos.findAccountByCustomerName(customerName);
         if (accountOptional.isEmpty()) {
             throw new RecordNotFoundException("cannot find the files, please give me anther carId");
@@ -169,7 +169,7 @@ public class CustomerAccountService {
         return dto;
     }
 
-    public CustomerAccount DtoToAccount(CustomerAccountDto.CustomerAccountAllDto accountDto) {
+    public CustomerAccount DtoToAccount(CustomerAccountDto accountDto) {
         CustomerAccount account = new CustomerAccount();
 
         account.setCustomerName(accountDto.customerName);

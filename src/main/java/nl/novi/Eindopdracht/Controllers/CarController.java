@@ -14,7 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-@RequestMapping("car")
+@RequestMapping("/car")
 @RestController
 @AllArgsConstructor
 public class CarController {
@@ -24,7 +24,7 @@ public class CarController {
     private final CustomerAccountService cAService;
 
 
-    @PostMapping("create/car")
+    @PostMapping("/create/car")
     public ResponseEntity<Object> createCar(@RequestBody CarDto carDto){
         carService.createCar(carDto);
 

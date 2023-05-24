@@ -38,6 +38,7 @@ public class Car {
     @OneToOne(mappedBy = "carInspection")
     CarInspection carInspection;
 
+
 }
 
 
