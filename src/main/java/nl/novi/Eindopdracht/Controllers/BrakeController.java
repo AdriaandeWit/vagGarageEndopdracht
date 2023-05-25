@@ -45,18 +45,11 @@ public class BrakeController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<BrakesOutputDto>getBrakeById(@PathVariable long id){
+    public ResponseEntity<BrakesOutputDto>getBrakeById(@PathVariable Long id){
         BrakesOutputDto brakesOutputDto = brakeService.getBrakeById(id);
         return ResponseEntity.ok(brakesOutputDto);
     }
-/*
-    @GetMapping("/find/all/brackes/{CarId}")
-    public ResponseEntity<List<BrakesOutputDto>>getAllbrakesByCarId(@PathVariable("CarID") long carId){
-        List<BrakesOutputDto> brakesOutputDtoList = brakeService.getAllBrakesByCarId(carId);
-        return ResponseEntity.ok(brakesOutputDtoList);
 
-    }
-*/
     @PutMapping("/update/amountOfParts/{id}")
     public ResponseEntity<Object>updateAmountOfParts(@PathVariable Long id,@RequestParam Integer amountOfParts){
          brakeService.updateAmountOfParts(id,amountOfParts);
@@ -80,7 +73,7 @@ public class BrakeController {
   //  }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteBrakeById(Long id){
+    public ResponseEntity<String> deleteBrakeById(@PathVariable Long id){
         brakeService.deleteBrakeById(id);
         return  ResponseEntity.noContent().build();
     }

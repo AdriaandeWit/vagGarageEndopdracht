@@ -2,6 +2,7 @@ package nl.novi.Eindopdracht.dto.input.CarPartsDto;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +20,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class CarPartsDto {
-
     public Long id;
     public String partName;
     public String partNumber;

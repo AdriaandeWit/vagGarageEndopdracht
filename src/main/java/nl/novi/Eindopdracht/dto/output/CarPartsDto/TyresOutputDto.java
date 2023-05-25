@@ -1,7 +1,11 @@
 package nl.novi.Eindopdracht.dto.output.CarPartsDto;
 
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.Date;
+@Getter
+@Setter
 public class TyresOutputDto extends CarPartsOutputDto {
     public Double tyresHight;
     public Double tyresWidth;
