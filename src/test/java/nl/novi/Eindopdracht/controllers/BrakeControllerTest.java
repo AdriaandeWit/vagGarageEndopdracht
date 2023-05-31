@@ -2,7 +2,7 @@ package nl.novi.Eindopdracht.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nl.novi.Eindopdracht.Controllers.BrakeController;
+import nl.novi.Eindopdracht.Controllers.models.BrakeController;
 import nl.novi.Eindopdracht.Models.Data.CarParts.Brakes;
 import nl.novi.Eindopdracht.Service.BrakeService;
 import nl.novi.Eindopdracht.Service.CarService;

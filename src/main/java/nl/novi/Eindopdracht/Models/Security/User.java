@@ -1,12 +1,17 @@
-/*
+
 package nl.novi.Eindopdracht.Models.Security;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
+@Getter
+@Setter
 public class User {
 @Id
     private String userName;
@@ -19,51 +24,21 @@ public class User {
 
     private String email;
 
-*/
-/*
-Hier komt nog de realtie van user naar role
+    @OneToMany(
+            targetEntity = Authority.class,
+            mappedBy = "username",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<Authority> authorities = new HashSet<>();
 
- *//*
 
-
-    public String getUserName() {
-        return userName;
+    public void addAuthority(Authority authority){
+        this.authorities.add(authority);
     }
 
-    public String getPassword() {
-        return password;
+    public void removeAuthority(Authority authority){
+        this.authorities.remove(authority);
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
 
-    public String getApiKey() {
-        return apiKey;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-}
-*/

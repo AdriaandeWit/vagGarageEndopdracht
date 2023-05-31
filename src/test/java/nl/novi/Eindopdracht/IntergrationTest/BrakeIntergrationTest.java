@@ -110,8 +110,8 @@ public class BrakeIntergrationTest {
     @Test
     void getBrakeById() throws Exception {
         mockMvc.perform(get("/parts/brakes/find/" + brake1.getId()))
-                .andExpect(status().isOk());
-              //andExpect((ResultMatcher) jsonPath("partName").value(brake1.getPartName()));
+                .andExpect(status().isOk())
+                .andExpect((ResultMatcher) jsonPath("partName").value(brake1.getPartName()));
              //andExpect((ResultMatcher) jsonPath("boreTypeNumberOfHoles").value(brake1.getBoreTypeNumberOfHoles()));
             //    .andExpect((ResultMatcher) jsonPath("outerDiameter").value(brake1.getOuterDiameter().toString()))
             //    .andExpect((ResultMatcher) jsonPath("withoutWheelHub").value(brake1.getWithoutWheelHub()));
