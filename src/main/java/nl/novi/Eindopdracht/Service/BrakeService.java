@@ -54,12 +54,14 @@ return
 */
     public Object updateAmountOfParts(Long id, Integer amountOfParts) {
         Optional<Brakes> optionalBrake = brakeRepos.findById(id);
-        if(optionalBrake.isPresent()){
+        if(optionalBrake.isEmpty()){
+            throw new RecordNotFoundException("amountOfParts","id",id);
+
+        }else {
             Brakes brake = optionalBrake.get();
             brake.setAmountOfParts(amountOfParts);
             brakeRepos.save(brake);
-        }else {
-            throw new RecordNotFoundException("amountOfParts","id",id);
+
         }
         return null;
     }
@@ -91,12 +93,12 @@ return
         
 
 
- //   public void addBrakeToCar(Long id, Long carId) {
+ //   public void addBrakeToCar(Long carId, Long carId) {
 
 //}
 
     public String deleteBrakeById(Long id) {
-        Brakes existingBrake = brakeRepos.findById(id).orElseThrow(
+        brakeRepos.findById(id).orElseThrow(
                 () -> new RecordNotFoundException("brake", "id",id)
         );
 

@@ -1,3 +1,4 @@
+/*
 package nl.novi.Eindopdracht.Repository;
 
 import nl.novi.Eindopdracht.Models.Security.User;
@@ -7,3 +8,4 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
 
 }
+*/

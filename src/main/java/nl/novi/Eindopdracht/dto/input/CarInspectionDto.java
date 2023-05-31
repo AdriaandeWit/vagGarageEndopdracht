@@ -1,17 +1,29 @@
 package nl.novi.Eindopdracht.dto.input;
 
-import java.time.LocalDate;
+import lombok.Getter;
+import lombok.Setter;
+import nl.novi.Eindopdracht.Models.Data.Car;
+import nl.novi.Eindopdracht.Models.Data.CarRepair;
 
+import java.time.LocalDate;
+import java.util.List;
+
+@Getter
+@Setter
 public class CarInspectionDto {
 
     public Long id;
     public int milleAge;
+
     public String licensePlate;
-    public String costumerNumber;
+
     public LocalDate inspectionDate;
     public boolean carIsCorrect;
     public String carIsFine;
     public boolean carIsIncorrect;
     public String hasProblem;
 
+    private Car Car;
+
+    private List<CarRepair> carRepairList;
 }

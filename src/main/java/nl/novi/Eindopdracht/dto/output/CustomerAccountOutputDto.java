@@ -12,7 +12,6 @@ public class CustomerAccountOutputDto {
     public String customerName;
     public String firstName;
     public String lastName;
-    public String customerNumber;
 
     public String address;
     public String phoneNumber;

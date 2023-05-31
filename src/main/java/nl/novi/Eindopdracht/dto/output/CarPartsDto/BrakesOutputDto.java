@@ -1,5 +1,10 @@
 package nl.novi.Eindopdracht.dto.output.CarPartsDto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class BrakesOutputDto extends CarPartsOutputDto {
 
     public Double OuterDiameter;

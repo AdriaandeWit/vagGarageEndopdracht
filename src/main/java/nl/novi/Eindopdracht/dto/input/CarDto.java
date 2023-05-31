@@ -1,23 +1,29 @@
 package nl.novi.Eindopdracht.dto.input;
 
-import nl.novi.Eindopdracht.Models.Data.CarOwner;
+import lombok.Getter;
+import lombok.Setter;
+import nl.novi.Eindopdracht.Models.Data.*;
+import nl.novi.Eindopdracht.Models.Data.Enum.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
+@Getter
+@Setter
 public class CarDto {
 
-    public Long id;
-    public String brand;
-    public String model;
+    
+    public CarBrand brand;
+    public CarModel model;
     public LocalDate yearOfBuild;
-    public String color;
+    public Colors color;
     public String licensePlate;
     public Integer mileAge;
-    public String engineType;
-    public String body;
-    public String transmission;
-    public String fuel;
+    public EngineType engineType;
+    public Body body;
+    public Transmission transmission;
+    public Fuel fuel;
 
-    public List<CarOwner> carOwners;
+    public CustomerAccount account;
+
+
 }

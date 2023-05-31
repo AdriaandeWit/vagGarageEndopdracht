@@ -1,4 +1,4 @@
-package nl.novi.Eindopdracht.Service;
-
-public class AuthoritiesService {
-}
+//package nl.novi.Eindopdracht.Service;
+//
+//public class AuthoritiesService {
+//}

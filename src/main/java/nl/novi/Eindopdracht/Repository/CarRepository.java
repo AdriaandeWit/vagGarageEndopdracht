@@ -7,5 +7,10 @@ import java.util.Optional;
 
 public interface CarRepository extends JpaRepository<Car,Long> {
 
+    Optional<Car> findByLicensePlate(String licensePlate);
 
+
+    boolean existsByLicensePlate(String licensePlate);
+
+    void deleteByLicensePlate(String licensePlate);
 }

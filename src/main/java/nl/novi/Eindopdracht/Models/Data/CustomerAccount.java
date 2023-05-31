@@ -2,16 +2,13 @@ package nl.novi.Eindopdracht.Models.Data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"customerName", "customerNumber"}),
+        @UniqueConstraint(columnNames = {"customerName"}),
         @UniqueConstraint(columnNames = {"phoneNumber"})
 })
 @AllArgsConstructor
@@ -19,15 +16,12 @@ import java.util.List;
 @Getter
 @Setter
 public class CustomerAccount{
-@GeneratedValue
+ @GeneratedValue
     private Long id;
-@Id         // TODO: 08/05/2023 vraag aan mark of je een een string met een long gekoppeld kan worden.
+    @Id
     private String customerName;
-
     private String firstName;
     private String lastName;
-
-    private String customerNumber;
     private String address;
     private String phoneNumber;
     private String billingAddress;
@@ -35,8 +29,17 @@ public class CustomerAccount{
 
     @OneToMany
     @JsonIgnore
-    List<CarOwner> carOwners;
+    List<Car> cars;
 
 
-
+    public CustomerAccount(Long id, String customerName, String firstName, String lastName, String address, String phoneNumber, String billingAddress, String bankAccountNumber) {
+        this.id = id;
+        this.customerName = customerName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.billingAddress = billingAddress;
+        this.bankAccountNumber = bankAccountNumber;
+    }
 }

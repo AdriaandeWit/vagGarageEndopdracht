@@ -1,15 +1,14 @@
 package nl.novi.Eindopdracht.Models.Data;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -24,14 +23,19 @@ public class CarInspection {
     private int mileAge;
 
     private String licensePlate;
-    private String costumerNumber;
     private LocalDate inspectionDate;
-
     private boolean carIsCorrect;
     private String carIsFine;
-    private boolean carIsIncorrect;
-
     private String hasProblem;
+
+  //  @OneToOne(mappedBy ="Car")
+    @OneToOne(mappedBy = "carInspection")
+    private Car Car;
+
+    @OneToMany
+    private List<CarRepair> carRepair;
+
+
 
 }
 

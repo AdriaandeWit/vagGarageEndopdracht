@@ -1,3 +1,4 @@
+/*
 package nl.novi.Eindopdracht.Models.Security;
 
 import jakarta.persistence.Entity;
@@ -18,10 +19,12 @@ public class User {
 
     private String email;
 
+*/
 /*
 Hier komt nog de realtie van user naar role
 
- */
+ *//*
+
 
     public String getUserName() {
         return userName;
@@ -63,3 +66,4 @@ Hier komt nog de realtie van user naar role
         this.email = email;
     }
 }
+*/
