@@ -1,4 +1,4 @@
-package nl.novi.Eindopdracht.Controllers;
+package nl.novi.Eindopdracht.Controllers.models;
 
 import nl.novi.Eindopdracht.Service.BrakeService;
 import nl.novi.Eindopdracht.Service.CarService;
