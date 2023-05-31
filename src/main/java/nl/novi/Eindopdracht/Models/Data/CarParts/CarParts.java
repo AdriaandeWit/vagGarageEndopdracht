@@ -1,21 +1,18 @@
 package nl.novi.Eindopdracht.Models.Data.CarParts;
 
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import nl.novi.Eindopdracht.Models.Data.CarRepair;
 
 import java.util.List;
-
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@MappedSuperclass
-public class CarParts {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class CarParts {
     @Id
     @GeneratedValue
     @NonNull
@@ -29,7 +26,8 @@ public class CarParts {
     @NonNull
     private Integer amountOfParts;
 
-    @OneToMany
+
+    @ManyToMany
     private List<CarRepair> carRepair;
 
 }

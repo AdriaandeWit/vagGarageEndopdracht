@@ -35,8 +35,8 @@ public class Car {
     @ManyToOne
     private CustomerAccount account;
 
-    @OneToOne(mappedBy = "carInspection")
-    CarInspection carInspection;
+    @OneToOne
+    private CarInspection carInspection;
 
 
 }

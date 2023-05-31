@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-
 @Entity
 @Table
 public class SparkPlug extends CarParts {

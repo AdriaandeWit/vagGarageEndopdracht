@@ -54,12 +54,14 @@ return
 */
     public Object updateAmountOfParts(Long id, Integer amountOfParts) {
         Optional<Brakes> optionalBrake = brakeRepos.findById(id);
-        if(optionalBrake.isPresent()){
+        if(optionalBrake.isEmpty()){
+            throw new RecordNotFoundException("amountOfParts","id",id);
+
+        }else {
             Brakes brake = optionalBrake.get();
             brake.setAmountOfParts(amountOfParts);
             brakeRepos.save(brake);
-        }else {
-            throw new RecordNotFoundException("amountOfParts","id",id);
+
         }
         return null;
     }

@@ -11,7 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@RequestMapping("/car/parts/brakes")
+@RequestMapping("/parts/brakes")
 @RestController
 public class BrakeController {
 
@@ -20,69 +20,70 @@ public class BrakeController {
     private final CarService carService;
 
 
-    public BrakeController(BrakeService brakeService,CarService carService) {
+    public BrakeController(BrakeService brakeService, CarService carService) {
         this.brakeService = brakeService;
         this.carService = carService;
     }
 
 
-
     @PostMapping("create")
-    public ResponseEntity<Object>createBrake(@RequestBody BrakesDto brakesDto){
-        Long id =brakeService.createBrake(brakesDto);
-        brakesDto.id= id;
+    public ResponseEntity<Object> createBrake(@RequestBody BrakesDto brakesDto) {
+        Long id = brakeService.createBrake(brakesDto);
+        brakesDto.id = id;
 
         URI uri = URI.create(ServletUriComponentsBuilder.
-                fromCurrentRequest().path("/"+ id).toUriString());
+                fromCurrentRequest().path("/" + id).toUriString());
         return ResponseEntity.created(uri).body(brakesDto);
 
     }
 
     @GetMapping("/find/all")
-    public ResponseEntity<List<BrakesOutputDto>>getAllBrakes(){
+    public ResponseEntity<List<BrakesOutputDto>> getAllBrakes() {
         List<BrakesOutputDto> brakesOutputDtoList = brakeService.getAllBrakes();
         return ResponseEntity.ok(brakesOutputDtoList);
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<BrakesOutputDto>getBrakeById(@PathVariable Long id){
+    public ResponseEntity<BrakesOutputDto> getBrakeById(@PathVariable Long id) {
         BrakesOutputDto brakesOutputDto = brakeService.getBrakeById(id);
         return ResponseEntity.ok(brakesOutputDto);
     }
 
     @PutMapping("/update/amountOfParts/{id}")
-    public ResponseEntity<Object>updateAmountOfParts(@PathVariable Long id,@RequestParam Integer amountOfParts){
-         brakeService.updateAmountOfParts(id,amountOfParts);
-        return ResponseEntity.ok().build();
-    }
-    @PutMapping("/update/price/{id}/")
-    public ResponseEntity<Object>updatePrice(@PathVariable Long id,@RequestParam Double price){
-        brakeService.updatePrice(id,price);
-        return ResponseEntity.ok().build();
-    }
-    @PutMapping("/update/partNumber/{id}")
-    public ResponseEntity<Object>updatePartNumber(@PathVariable Long id,@RequestParam String partNumber){
-        brakeService.updatePartNumber(id,partNumber);
+    public ResponseEntity<Object> updateAmountOfParts(@PathVariable Long id, @RequestParam Integer amountOfParts) {
+        brakeService.updateAmountOfParts(id, amountOfParts);
         return ResponseEntity.ok().build();
     }
 
-  //  @PutMapping("/add/brake/{carId}/car/{carId}")
-  //  public ResponseEntity<Object>addBrakeToCar(@PathVariable Long carId,@PathVariable ("carId") Long carId){
-  //      brakeService.addBrakeToCar(carId,carId);
-  //      return  ResponseEntity.ok().build();
-  //  }
+    @PutMapping("/update/price/{id}/")
+    public ResponseEntity<Object> updatePrice(@PathVariable Long id, @RequestParam Double price) {
+        brakeService.updatePrice(id, price);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/update/partNumber/{id}")
+    public ResponseEntity<Object> updatePartNumber(@PathVariable Long id, @RequestParam String partNumber) {
+        brakeService.updatePartNumber(id, partNumber);
+        return ResponseEntity.ok().build();
+    }
+
+    //  @PutMapping("/add/brake/{carId}/car/{carId}")
+    //  public ResponseEntity<Object>addBrakeToCar(@PathVariable Long carId,@PathVariable ("carId") Long carId){
+    //      brakeService.addBrakeToCar(carId,carId);
+    //      return  ResponseEntity.ok().build();
+    //  }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteBrakeById(@PathVariable Long id){
+    public ResponseEntity<String> deleteBrakeById(@PathVariable Long id) {
         brakeService.deleteBrakeById(id);
-        return  ResponseEntity.noContent().build();
-    }
-    @DeleteMapping("/delete/All")
-    public ResponseEntity<String>deleteAllBrakes(){
-        brakeService.deleteAllBrakes();
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/delete/All")
+    public ResponseEntity<String> deleteAllBrakes() {
+        brakeService.deleteAllBrakes();
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

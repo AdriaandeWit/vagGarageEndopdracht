@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 
 @Entity
-@Table(name = "carInspection")
+@Table
 public class CarInspection {
 @Id
 @GeneratedValue
@@ -28,7 +28,8 @@ public class CarInspection {
     private String carIsFine;
     private String hasProblem;
 
-    @OneToOne(mappedBy ="Car")
+  //  @OneToOne(mappedBy ="Car")
+    @OneToOne(mappedBy = "carInspection")
     private Car Car;
 
     @OneToMany

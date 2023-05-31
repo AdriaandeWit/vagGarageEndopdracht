@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"customerName", "customerNumber"}),
+        @UniqueConstraint(columnNames = {"customerName"}),
         @UniqueConstraint(columnNames = {"phoneNumber"})
 })
 @AllArgsConstructor

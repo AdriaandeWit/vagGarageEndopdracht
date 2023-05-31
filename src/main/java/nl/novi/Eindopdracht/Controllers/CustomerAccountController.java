@@ -48,12 +48,6 @@ public class CustomerAccountController {
         return ResponseEntity.ok(customer);
     }
 
-    @GetMapping("/find")
-    public ResponseEntity<CustomerAccountOutputDto.CustomerNameOutputDto> getCustomerByName(@RequestParam String costumerFirstname){
-        CustomerAccountOutputDto.CustomerNameOutputDto customer = cAService.getCustomerByLastName(costumerFirstname);
-        return ResponseEntity.ok(customer);
-    }
-
     @GetMapping("/find/billing-address")
     public ResponseEntity<CustomerAccountOutputDto.CustomerFinanceOutputDto>getBillingAddressByCustomermerName(@RequestParam String costumerName){
         CustomerAccountOutputDto.CustomerFinanceOutputDto customer = cAService.getBillingAddressByCustomerName(costumerName);
