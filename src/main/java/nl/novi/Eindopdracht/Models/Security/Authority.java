@@ -1,0 +1,34 @@
+package nl.novi.Eindopdracht.Models.Security;
+
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+@Entity
+@IdClass(AuthorityKey.class)
+@Table(name = "authorities")
+@Getter
+@Setter
+public class Authority implements Serializable {
+    @Id
+    @Column(nullable = false)
+private String username;
+@Id
+@Column(nullable = false)
+private String authority;
+
+public Authority(){
+}
+
+public Authority(String username, String authority){
+    this.username = username;
+    this.authority =authority;
+
+}
+
+}
+
+
+

@@ -1,5 +1,6 @@
 package nl.novi.Eindopdracht.Controllers.Security;
 
+import nl.novi.Eindopdracht.Service.SecurityService.CustomUserDetailService;
 import nl.novi.Eindopdracht.dto.input.AuthDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
+    private final AuthenticationManager authManager;
 
     private final CustomUserDetailService userDetailService;
 
     private final JwtService jwtService;
 
-    public AuthController(AuthenticationManager man, JwtService service,CustomUserDetailService userDetailService ){
+    public AuthController(AuthenticationManager man, JwtService service, CustomUserDetailService userDetailService ){
         this.authManager =man;
         this.userDetailService = userDetailService;
         this.jwtService = service;
