@@ -1,4 +1,4 @@
-package nl.novi.Eindopdracht.Service;
+package nl.novi.Eindopdracht.Service.ModelService;
 
 import nl.novi.Eindopdracht.Exceptions.CarStatusNotFoundException;
 import nl.novi.Eindopdracht.Exceptions.InspectionNotFoundException;

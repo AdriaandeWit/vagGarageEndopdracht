@@ -1,6 +1,6 @@
 package nl.novi.Eindopdracht.Controllers.models;
 
-import nl.novi.Eindopdracht.Service.CarInspectionService;
+import nl.novi.Eindopdracht.Service.ModelService.CarInspectionService;
 import nl.novi.Eindopdracht.dto.input.CarInspectionDto;
 import nl.novi.Eindopdracht.dto.output.CarInspectionOutputDto;
 import org.springframework.http.ResponseEntity;

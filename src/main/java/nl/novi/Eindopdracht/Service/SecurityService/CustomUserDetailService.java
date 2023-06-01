@@ -19,7 +19,7 @@ public class CustomUserDetailService implements UserDetailsService {
     private final UserService userService;
 
     public CustomUserDetailService(UserService userService) {
-        this.userService =userService;
+        this.userService = userService;
 
     }
 
@@ -27,17 +27,17 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserOutputDto userOutputDTO = userService.getUser(username);
 
-        String password = userOutputDTO.;
+        String password = userOutputDTO.password;
 
-        Set<Authority> authorities = userOutputDTO.;
+        Set<Authority> authorities = userOutputDTO.getAuthorities();
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (Authority authority :authorities){
+        for (Authority authority : authorities) {
             grantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
         }
 
 
+        return new org.springframework.security.core.userdetails.User(username, password, grantedAuthorities);
 
-        return new org.springframework.security.core.userdetails.User(username,password,grantedAuthorities);
 
-
+    }
 }

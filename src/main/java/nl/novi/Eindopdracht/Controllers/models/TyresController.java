@@ -1,7 +1,7 @@
 package nl.novi.Eindopdracht.Controllers.models;
 
 import lombok.AllArgsConstructor;
-import nl.novi.Eindopdracht.Service.TyresService;
+import nl.novi.Eindopdracht.Service.ModelService.TyresService;
 import nl.novi.Eindopdracht.dto.input.CarPartsDto.TyresDto;
 import nl.novi.Eindopdracht.dto.output.CarPartsDto.TyresOutputDto;
 import org.springframework.http.ResponseEntity;

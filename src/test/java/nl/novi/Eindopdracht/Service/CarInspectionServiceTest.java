@@ -10,6 +10,7 @@ import nl.novi.Eindopdracht.Models.Data.CarRepair;
 import nl.novi.Eindopdracht.Models.Data.CustomerAccount;
 import nl.novi.Eindopdracht.Models.Data.Enum.*;
 import nl.novi.Eindopdracht.Repository.CarInspectionRepository;
+import nl.novi.Eindopdracht.Service.ModelService.CarInspectionService;
 import nl.novi.Eindopdracht.dto.input.CarInspectionDto;
 import nl.novi.Eindopdracht.dto.output.CarInspectionOutputDto;
 import org.junit.jupiter.api.BeforeEach;

@@ -3,8 +3,8 @@ package nl.novi.Eindopdracht.Controllers.models;
 
 import lombok.AllArgsConstructor;
 import nl.novi.Eindopdracht.Models.Data.Enum.EngineType;
-import nl.novi.Eindopdracht.Service.CarService;
-import nl.novi.Eindopdracht.Service.CustomerAccountService;
+import nl.novi.Eindopdracht.Service.ModelService.CarService;
+import nl.novi.Eindopdracht.Service.ModelService.CustomerAccountService;
 import nl.novi.Eindopdracht.dto.input.CarDto;
 import nl.novi.Eindopdracht.dto.output.CarOutputDto;
 import nl.novi.Eindopdracht.dto.output.CustomerAccountOutputDto;

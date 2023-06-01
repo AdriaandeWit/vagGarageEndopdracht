@@ -4,11 +4,12 @@ import nl.novi.Eindopdracht.Models.Security.User;
 import nl.novi.Eindopdracht.Repository.UserRepository;
 import nl.novi.Eindopdracht.Security.MyUserDetails;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Optional;
 
-public class MyUserDetailService {
+public class MyUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepos;
 

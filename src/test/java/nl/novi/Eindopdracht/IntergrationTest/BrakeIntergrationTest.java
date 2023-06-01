@@ -2,11 +2,8 @@ package nl.novi.Eindopdracht.IntergrationTest;
 
 import nl.novi.Eindopdracht.Models.Data.CarParts.Brakes;
 import nl.novi.Eindopdracht.Repository.BrakeRepository;
-import nl.novi.Eindopdracht.Repository.CarInspectionRepository;
 import nl.novi.Eindopdracht.Repository.CarRepository;
-import nl.novi.Eindopdracht.Service.BrakeService;
-import nl.novi.Eindopdracht.Service.CarInspectionService;
-import nl.novi.Eindopdracht.Service.CarService;
+import nl.novi.Eindopdracht.Service.ModelService.BrakeService;
 import nl.novi.Eindopdracht.dto.input.CarPartsDto.BrakesDto;
 import nl.novi.Eindopdracht.dto.output.CarPartsDto.BrakesOutputDto;
 import org.junit.jupiter.api.BeforeEach;

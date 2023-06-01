@@ -1,6 +1,7 @@
 package nl.novi.Eindopdracht.Controllers.Security;
 
 import nl.novi.Eindopdracht.Service.SecurityService.CustomUserDetailService;
+import nl.novi.Eindopdracht.Service.SecurityService.JwtService;
 import nl.novi.Eindopdracht.dto.input.AuthDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+
 @Entity
 @IdClass(AuthorityKey.class)
 @Table(name = "authorities")
@@ -14,19 +15,19 @@ import java.io.Serializable;
 public class Authority implements Serializable {
     @Id
     @Column(nullable = false)
-private String username;
-@Id
-@Column(nullable = false)
-private String authority;
+    private String username;
+    @Id
+    @Column(nullable = false)
+    private String authority;
 
-public Authority(){
-}
+    public Authority() {
+    }
 
-public Authority(String username, String authority){
-    this.username = username;
-    this.authority =authority;
+    public Authority(String username, String authority) {
+        this.username = username;
+        this.authority = authority;
 
-}
+    }
 
 }
 
