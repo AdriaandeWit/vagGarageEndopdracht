@@ -14,19 +14,19 @@ import java.util.List;
 
 @Entity
 @Table
-public class Brakes extends CarParts{
+public class Brakes extends CarParts {
 
 
-private Double outerDiameter;
-private Double centerDiameter;
-private Double height;
-private Double minThickness;
-private Double surface;
-private Double discThickness;
-private String boreTypeNumberOfHoles;
-private Double wheelStudDiameter;
-private Boolean withoutWheelMountingBolts;
-private Boolean withoutWheelHub;
+    private Double outerDiameter;
+    private Double centerDiameter;
+    private Double height;
+    private Double minThickness;
+    private Double surface;
+    private Double discThickness;
+    private String boreTypeNumberOfHoles;
+    private Double wheelStudDiameter;
+    private Boolean withoutWheelMountingBolts;
+    private Boolean withoutWheelHub;
 
     public Brakes(@NonNull Long id, @NonNull String partName, @NonNull String partNumber, @NonNull Double price, @NonNull Integer amountOfParts, List<CarRepair> carRepair, Double outerDiameter, Double centerDiameter, Double height, Double minThickness, Double surface, Double discThickness, String boreTypeNumberOfHoles, Double wheelStudDiameter, Boolean withoutWheelMountingBolts, Boolean withoutWheelHub) {
         super(id, partName, partNumber, price, amountOfParts, carRepair);

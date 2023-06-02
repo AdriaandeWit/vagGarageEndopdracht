@@ -43,7 +43,7 @@ import java.util.Map;
 
 
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/{Username}")
+                    .path("/{username}")
                     .buildAndExpand(userDto.username)
                     .toUri();
 
