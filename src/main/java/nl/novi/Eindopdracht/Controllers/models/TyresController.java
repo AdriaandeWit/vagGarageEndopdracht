@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 
 
-@RequestMapping("/car/parts/tyres")
+@RequestMapping("/parts/tyres")
 @RestController
 public class TyresController {
 
@@ -62,7 +62,7 @@ public class TyresController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete/All")
+    @DeleteMapping("/delete/all")
     public ResponseEntity<String> deleteAllTyres(){
         tyresService.deleteAllBrakes();
         return ResponseEntity.noContent().build();
