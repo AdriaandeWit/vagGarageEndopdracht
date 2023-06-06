@@ -61,9 +61,11 @@ public class SecurityConfig {
 @Bean //Aithorizatie met jwt
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .httpBasic().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                .requestMatchers(HttpMethod.POST, "/users/create").permitAll()
+                .requestMatchers(HttpMethod.POST,"/authenticate").permitAll()
                 .requestMatchers("/secret").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/carRepair/**").hasAuthority("MECHANIC")
                 .requestMatchers(HttpMethod.PUT, "/inspection/**").hasAuthority("MECHANIC")
@@ -80,7 +82,7 @@ public class SecurityConfig {
                 .anyRequest().denyAll()
                 .and()
                 .addFilterBefore(new JwtRequestFilter(myUserDetailService, jwtService), UsernamePasswordAuthenticationFilter.class)
-                .csrf().disable()
+
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 

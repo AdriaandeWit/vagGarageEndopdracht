@@ -25,8 +25,8 @@ public class AuthController {
 
     private final JwtService jwtService;
 
-    public AuthController(AuthenticationManager man, JwtService service, MyUserDetailService myUserDetailService){
-        this.authManager =man;
+    public AuthController(AuthenticationManager man, JwtService service, MyUserDetailService myUserDetailService) {
+        this.authManager = man;
         this.myUserDetailService = myUserDetailService;
         this.jwtService = service;
     }
@@ -46,8 +46,7 @@ public class AuthController {
             authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
-        }
-        catch (BadCredentialsException ex) {
+        } catch (BadCredentialsException ex) {
             throw new Exception("Incorrect username or password", ex);
         }
 

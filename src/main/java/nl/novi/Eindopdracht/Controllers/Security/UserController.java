@@ -36,7 +36,7 @@ import java.util.Map;
             return ResponseEntity.ok().body(optionalUser);
         }
 
-        @PostMapping("")
+        @PostMapping("/create")
         public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
             String newUsername = userService.createUser(userDto);
             userService.addAuthority(newUsername, "ROLE_USER");
