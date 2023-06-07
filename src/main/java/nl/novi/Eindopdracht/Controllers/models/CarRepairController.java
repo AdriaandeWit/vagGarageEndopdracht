@@ -1,7 +1,7 @@
 package nl.novi.Eindopdracht.Controllers.models;
 
 import lombok.AllArgsConstructor;
-import nl.novi.Eindopdracht.Service.CarReparationService;
+import nl.novi.Eindopdracht.Service.ModelService.CarReparationService;
 import nl.novi.Eindopdracht.dto.input.CarRepairDto;
 import nl.novi.Eindopdracht.dto.output.CarRepairOutputDto;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class CarRepairController {
 
 private final CarReparationService reparationService;
 
-  @PostMapping
+  @PostMapping("/create/")
     public ResponseEntity<Object> createCarReport(@RequestBody CarRepairDto carRepairDto){
     Long id = reparationService.createCarReport(carRepairDto);
     carRepairDto.id =id;

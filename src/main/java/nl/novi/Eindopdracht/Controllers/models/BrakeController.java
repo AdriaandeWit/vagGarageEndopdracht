@@ -1,7 +1,7 @@
 package nl.novi.Eindopdracht.Controllers.models;
 
-import nl.novi.Eindopdracht.Service.BrakeService;
-import nl.novi.Eindopdracht.Service.CarService;
+import nl.novi.Eindopdracht.Service.ModelService.BrakeService;
+import nl.novi.Eindopdracht.Service.ModelService.CarService;
 import nl.novi.Eindopdracht.dto.input.CarPartsDto.BrakesDto;
 import nl.novi.Eindopdracht.dto.output.CarPartsDto.BrakesOutputDto;
 import org.springframework.http.ResponseEntity;
@@ -70,7 +70,7 @@ public class BrakeController {
     //  @PutMapping("/add/brake/{carId}/car/{carId}")
     //  public ResponseEntity<Object>addBrakeToCar(@PathVariable Long carId,@PathVariable ("carId") Long carId){
     //      brakeService.addBrakeToCar(carId,carId);
-    //      return  ResponseEntity.ok().build();
+    //      return  ResponseEntity.ok().build();brakes
     //  }
 
     @DeleteMapping("/delete/{id}")

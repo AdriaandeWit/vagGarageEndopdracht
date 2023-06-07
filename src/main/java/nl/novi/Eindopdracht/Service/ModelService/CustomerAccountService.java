@@ -1,4 +1,4 @@
-package nl.novi.Eindopdracht.Service;
+package nl.novi.Eindopdracht.Service.ModelService;
 
 import lombok.AllArgsConstructor;
 import nl.novi.Eindopdracht.Exceptions.AccountNotFoundException;

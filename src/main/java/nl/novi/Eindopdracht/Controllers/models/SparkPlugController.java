@@ -1,7 +1,7 @@
 package nl.novi.Eindopdracht.Controllers.models;
 
 import lombok.AllArgsConstructor;
-import nl.novi.Eindopdracht.Service.SparkPlugService;
+import nl.novi.Eindopdracht.Service.ModelService.SparkPlugService;
 import nl.novi.Eindopdracht.dto.input.CarPartsDto.SparkPlugDto;
 import nl.novi.Eindopdracht.dto.output.CarPartsDto.SparkPlugOutputDto;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @AllArgsConstructor
 
-@RequestMapping("/car/parts/sprakplugs")
+@RequestMapping("/parts/sparkPlugs")
 @RestController
 public class SparkPlugController {
 

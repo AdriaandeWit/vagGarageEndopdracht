@@ -66,7 +66,7 @@ public class UserService {
         userDto.setPassword(encoder.encode(userDto.password));
         User newUser = userRepos.save(toUser(userDto));
 
-        return newUser.getUserName();
+        return newUser.getUsername();
 
     }
     public void deleteUser(String username) {
@@ -108,7 +108,7 @@ public class UserService {
     public static  UserOutputDto fromUser(User user){
         var dto = new UserOutputDto();
 
-        dto.username = user.getUserName();
+        dto.username = user.getUsername();
         dto.password = user.getPassword();
         dto.enabled = user.isEnabled();
         dto.apikey = user.getApiKey();
@@ -121,7 +121,7 @@ public class UserService {
     public User toUser( UserDto userDto) {
         var user = new User();
 
-        user.setUserName(userDto.getUsername());
+        user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
         user.setEnabled(userDto.getEnabled());
         user.setEmail(userDto.getApikey());

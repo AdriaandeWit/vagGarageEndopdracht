@@ -9,6 +9,7 @@ import nl.novi.Eindopdracht.Models.Data.Enum.*;
 import nl.novi.Eindopdracht.Repository.CarRepository;
 import nl.novi.Eindopdracht.Repository.CustomerAccountRepository;
 
+import nl.novi.Eindopdracht.Service.ModelService.CarService;
 import nl.novi.Eindopdracht.dto.input.CarDto;
 import nl.novi.Eindopdracht.dto.output.CarOutputDto;
 import org.junit.jupiter.api.BeforeEach;
