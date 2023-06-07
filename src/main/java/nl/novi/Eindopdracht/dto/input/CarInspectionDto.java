@@ -13,14 +13,15 @@ import java.util.List;
 public class CarInspectionDto {
 
     public Long id;
-    public int milleAge;
+
+    public int mileAge;
 
     public String licensePlate;
 
     public LocalDate inspectionDate;
     public boolean carIsCorrect;
     public String carIsFine;
-    public boolean carIsIncorrect;
+
     public String hasProblem;
 
     private Car Car;

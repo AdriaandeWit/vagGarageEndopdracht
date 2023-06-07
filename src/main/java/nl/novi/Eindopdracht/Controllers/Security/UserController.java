@@ -35,6 +35,11 @@ import java.util.Map;
             UserOutputDto optionalUser = userService.getUser(username);
             return ResponseEntity.ok().body(optionalUser);
         }
+        @GetMapping(value = "/{username}/authorities")
+        public ResponseEntity<Object> getAuthority(@PathVariable String username) {
+            return ResponseEntity.ok().body(userService.getAuthorities(username));
+        }
+
 
         @PostMapping("/create")
         public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
@@ -50,7 +55,16 @@ import java.util.Map;
 
             return ResponseEntity.created(location).build();
         }
-
+        @PostMapping(value = "/{username}/authorities")
+        public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
+            try {
+                String autorityName = (String) fields.get("authorities");
+                userService.addAuthority(username, autorityName);
+                return ResponseEntity.noContent().build();
+            } catch (Exception ex) {
+                throw new BadRequestException();
+            }
+        }
         @PutMapping(value = "/{username}")
         public ResponseEntity<UserDto> updateUser(@PathVariable("username") String username, @RequestBody UserDto dto) {
 
@@ -66,21 +80,7 @@ import java.util.Map;
         }
 
 
-        @GetMapping(value = "/{username}/authorities")
-        public ResponseEntity<Object> getAuthority(@PathVariable String username) {
-            return ResponseEntity.ok().body(userService.getAuthorities(username));
-        }
 
-        @PostMapping(value = "/{username}/authorities")
-        public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
-            try {
-                String autorityName = (String) fields.get("authorities");
-                userService.addAuthority(username, autorityName);
-                return ResponseEntity.noContent().build();
-            } catch (Exception ex) {
-                throw new BadRequestException();
-            }
-        }
 
         @DeleteMapping(value = "/{username}/authorities/{authority}")
         public ResponseEntity<Object> deleteAuthority(@PathVariable("username") String username, @PathVariable("authority") String autority) {

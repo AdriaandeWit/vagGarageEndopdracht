@@ -76,7 +76,7 @@ class CarInspectionServiceTest {
 
         iDto = new CarInspectionDto();
         iDto.setId(1L);
-        iDto.setMilleAge(10202);
+        iDto.setMileAge(10202);
         iDto.setLicensePlate("D-899-PP");
         iDto.setInspectionDate(LocalDate.of(2023, 5, 15));
         iDto.setCarIsCorrect(true);
@@ -88,7 +88,7 @@ class CarInspectionServiceTest {
 
         i2Dto = new CarInspectionDto();
         i2Dto.setId(3L);
-        i2Dto.setMilleAge(115432);
+        i2Dto.setMileAge(115432);
         i2Dto.setLicensePlate("A-311-QQ");
         i2Dto.setInspectionDate(LocalDate.of(2016, 2, 15));
         i2Dto.setCarIsCorrect(true);
@@ -191,10 +191,10 @@ class CarInspectionServiceTest {
 
         assertEquals(inspections.get(0).getId(), dtoList.get(0).id);
         assertEquals(inspections.get(0).getLicensePlate(), dtoList.get(0).licensePlate);
-        assertEquals(inspections.get(0).getMileAge(), dtoList.get(0).milleAge);
+        assertEquals(inspections.get(0).getMileAge(), dtoList.get(0).mileAge);
         assertEquals(inspections.get(1).getId(), dtoList.get(1).id);
         assertEquals(inspections.get(1).getLicensePlate(), dtoList.get(1).licensePlate);
-        assertEquals(inspections.get(1).getMileAge(), dtoList.get(1).milleAge);
+        assertEquals(inspections.get(1).getMileAge(), dtoList.get(1).mileAge);
 
     }
 
@@ -392,7 +392,7 @@ class CarInspectionServiceTest {
         carInspectionService.DtoToCarInspection(iDto);
 
         // Assert
-        assertEquals(iDto.milleAge, carInspection1.getMileAge());
+        assertEquals(iDto.mileAge, carInspection1.getMileAge());
         assertEquals(iDto.licensePlate, carInspection1.getLicensePlate());
         assertEquals(iDto.inspectionDate, carInspection1.getInspectionDate());
         assertEquals(iDto.carIsCorrect, carInspection1.isCarIsCorrect());
@@ -409,7 +409,7 @@ class CarInspectionServiceTest {
 
         carInspectionService.inspectionToDto(carInspection1);
 
-        assertEquals(iDto.milleAge, carInspection1.getMileAge());
+        assertEquals(iDto.mileAge, carInspection1.getMileAge());
         assertEquals(iDto.licensePlate, carInspection1.getLicensePlate());
         assertEquals(iDto.inspectionDate, carInspection1.getInspectionDate());
         assertEquals(iDto.carIsCorrect, carInspection1.isCarIsCorrect());

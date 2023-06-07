@@ -107,7 +107,7 @@ public class CarInspectionService {
 
     }
 
-    public void updateCarStatus(Long id,boolean carIsCorrect) {
+    public void updateCarStatus(Long id, boolean carIsCorrect) {
         Optional<CarInspection> optionalCarInspection = carInspectionRepos.findById(id);
         if (optionalCarInspection.isEmpty()) {
             throw new CarStatusNotFoundException("status", "id", "id");
@@ -119,25 +119,26 @@ public class CarInspectionService {
     }
 
 
-
     public String deleteInspectionById(Long id) {
         if (!carInspectionRepos.existsById(id)) {
             throw new InspectionNotFoundException("Inspection with carId" + id + "is not found");
         } else {
             Long count = carInspectionRepos.count();
             carInspectionRepos.deleteById(id);
-            return "you deleted "  + count +  " in the " + id;
+            return "you deleted " + count + " in the " + id;
         }
     }
+
     public String deleteAllInspections() {
         Long count = carInspectionRepos.count();
         carInspectionRepos.deleteAll();
         return "We deleted " + count + " inspections";
     }
+
     public CarInspection DtoToCarInspection(CarInspectionDto inspectionDto) {
         CarInspection inspection = new CarInspection();
         inspection.setId(inspectionDto.id);
-        inspection.setMileAge(inspectionDto.milleAge);
+        inspection.setMileAge(inspectionDto.mileAge);
         inspection.setLicensePlate(inspectionDto.licensePlate);
         inspection.setInspectionDate(inspectionDto.inspectionDate);
         inspection.setCarIsCorrect(inspectionDto.carIsCorrect);
@@ -154,7 +155,7 @@ public class CarInspectionService {
         CarInspectionOutputDto dto = new CarInspectionOutputDto();
 
         dto.id = carInspection.getId();
-        dto.milleAge = carInspection.getMileAge();
+        dto.mileAge = carInspection.getMileAge();
         dto.licensePlate = carInspection.getLicensePlate();
         dto.inspectionDate = carInspection.getInspectionDate();
         dto.carIsCorrect = carInspection.isCarIsCorrect();

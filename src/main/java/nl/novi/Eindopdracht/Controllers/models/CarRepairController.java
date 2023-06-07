@@ -20,7 +20,7 @@ public class CarRepairController {
 
 private final CarReparationService reparationService;
 
-  @PostMapping
+  @PostMapping("/create/")
     public ResponseEntity<Object> createCarReport(@RequestBody CarRepairDto carRepairDto){
     Long id = reparationService.createCarReport(carRepairDto);
     carRepairDto.id =id;

@@ -24,7 +24,7 @@ public class CustomerAccountController {
     private final CarService carService;
 
 
-    @PostMapping()
+    @PostMapping("/create/")
     public ResponseEntity<Object> createCustomer(@RequestBody CustomerAccountDto cADto){
         Long id = cAService.createCostumer(cADto);
         cADto.id = id;
@@ -36,24 +36,24 @@ public class CustomerAccountController {
         return ResponseEntity.created(uri).body(cADto);
     }
 
-    @GetMapping
+    @GetMapping("/find/all/")
     public ResponseEntity<List<CustomerAccountOutputDto>> getAllCustomers(){
         List<CustomerAccountOutputDto> customers = cAService.getAllCustomers();
         return ResponseEntity.ok(customers);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/find/byId/")
     public ResponseEntity<CustomerAccountOutputDto > getCustomerByCustomerName(@RequestParam String customerName ){
         CustomerAccountOutputDto customer = cAService.getCustomerByCustomerName(customerName);
         return ResponseEntity.ok(customer);
     }
 
-    @GetMapping("/find/billing-address")
-    public ResponseEntity<CustomerAccountOutputDto.CustomerFinanceOutputDto>getBillingAddressByCustomermerName(@RequestParam String costumerName){
-        CustomerAccountOutputDto.CustomerFinanceOutputDto customer = cAService.getBillingAddressByCustomerName(costumerName);
+    @GetMapping("/find/billing-address/")
+    public ResponseEntity<CustomerAccountOutputDto.CustomerFinanceOutputDto>getBillingAddressByCustomerName(@RequestParam String customerName){
+        CustomerAccountOutputDto.CustomerFinanceOutputDto customer = cAService.getBillingAddressByCustomerName(customerName);
         return ResponseEntity.ok(customer);
     }
-    @GetMapping("/find/car")
+    @GetMapping("/find/car/")
     public ResponseEntity<Collection<CarOutputDto>> getCarsByCustomerName(@RequestParam String customerName) {
         Collection<CarOutputDto> car = carService.getAllCarsByCustomerName(customerName);
         return ResponseEntity.ok(car);
@@ -66,20 +66,20 @@ public class CustomerAccountController {
         return ResponseEntity.ok(customer);
     }
 
-    @PutMapping("/update/address")
+    @PutMapping("/update/address/")
     public ResponseEntity<CustomerAccountDto> updateFinanceByCustomerName(@RequestParam String customerName, @RequestParam String billingAdress, @RequestParam String bankAccountNumber){
         CustomerAccountDto customer = cAService.updateFinance(customerName,billingAdress,bankAccountNumber);
         return ResponseEntity.ok(customer);
 
     }
 
-    @DeleteMapping("/delete/by-name")
+    @DeleteMapping("/delete/by-name/")
     public ResponseEntity<String> deleteCustomerByCustomerName(@RequestParam String customerName){
         cAService.deleteCustomerByCustomerName(customerName);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/all/")
     public ResponseEntity<String> deleteAllCustomers(){
         cAService.deleteAllCustomers();
         return ResponseEntity.noContent().build();

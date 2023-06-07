@@ -21,7 +21,7 @@ public class CarInspectionController {
         this.carInspectionService = carInspectionService;
     }
 
-    @PostMapping
+    @PostMapping("/create/")
     public ResponseEntity<Object> createInspection(CarInspectionDto carInspectionDto) {
         Long id = carInspectionService.createInspection(carInspectionDto);
         carInspectionDto.id = id;
@@ -38,15 +38,15 @@ public class CarInspectionController {
         return ResponseEntity.ok(carInspectionOutputDto);
     }
 
-    @GetMapping("/find/all/{id}")
-    public ResponseEntity<List<CarInspectionOutputDto>> getAllInspectionsById(@PathVariable long id) {
+    @GetMapping("/find/all/")
+    public ResponseEntity<List<CarInspectionOutputDto>> getAllInspections() {
         List<CarInspectionOutputDto> carInspectionOutputDtos = carInspectionService.getAllInspections();
         return ResponseEntity.ok(carInspectionOutputDtos);
     }
 
     @PutMapping("/update/mileage/{id}")
-    public ResponseEntity<Object> updateMileAge(@PathVariable Long id, @RequestParam int milleAge) {
-        carInspectionService.updateMileAge(id, milleAge);
+    public ResponseEntity<Object> updateMileAge(@PathVariable Long id, @RequestParam int mileAge) {
+        carInspectionService.updateMileAge(id, mileAge);
         return ResponseEntity.ok().build();
     }
 
@@ -81,7 +81,7 @@ public class CarInspectionController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete/inspections")
+    @DeleteMapping("/delete/all/inspections")
     public ResponseEntity<String> deleteAllInspections() {
         carInspectionService.deleteAllInspections();
         return ResponseEntity.noContent().build();
