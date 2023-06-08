@@ -1,58 +1,65 @@
-
 package nl.novi.Eindopdracht.Models.Security;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-
-import java.util.HashSet;
-import java.util.Set;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Table
 public class User {
-    @Id
-    @Column(nullable = false, unique = true)
-    @NotNull
-    private String username;
+@Id
+    private String userName;
 
-    @Column(nullable = false)
-    @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
-    @Column(nullable = false)
     private boolean enabled = true;
 
     private String apiKey;
-    @Column(nullable = false, unique = true)
+
     private String email;
 
-    @OneToMany(
-            targetEntity = Authority.class,
-            mappedBy = "username",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER)
-    private Set<Authority> authorities = new HashSet<>();
+/*
+Hier komt nog de realtie van user naar role
 
+ */
 
-    public void addAuthority(Authority authority) {
-        this.authorities.add(authority);
+    public String getUserName() {
+        return userName;
     }
 
-    public void removeAuthority(Authority authority) {
-        this.authorities.remove(authority);
+    public String getPassword() {
+        return password;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
-
-
