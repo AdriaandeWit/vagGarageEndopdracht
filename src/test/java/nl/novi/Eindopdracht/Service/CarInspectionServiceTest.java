@@ -81,7 +81,6 @@ class CarInspectionServiceTest {
         iDto.setInspectionDate(LocalDate.of(2023, 5, 15));
         iDto.setCarIsCorrect(true);
         iDto.setCarIsFine("No problem with the Car");
-        iDto.setCarIsIncorrect(false);
         iDto.setHasProblem("");
         iDto.setCar(car1);
         iDto.setCarRepairList(null);
@@ -93,7 +92,6 @@ class CarInspectionServiceTest {
         i2Dto.setInspectionDate(LocalDate.of(2016, 2, 15));
         i2Dto.setCarIsCorrect(true);
         i2Dto.setCarIsFine("No problem with the Car");
-        i2Dto.setCarIsIncorrect(false);
         i2Dto.setHasProblem("");
         i2Dto.setCar(car2);
         i2Dto.setCarRepairList(null);
